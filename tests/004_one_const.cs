@@ -1,1 +1,1 @@
-const float = 0.3;
+const int asd = 9;

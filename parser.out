@@ -4,6 +4,8 @@ Unused terminals:
 
     BOOLEAN_LITERAL
     DIVIDE
+    ELSE
+    IF
     LBRACKET
     LPAREN
     MINUS
@@ -13,6 +15,7 @@ Unused terminals:
     RPAREN
     STRING_LITERAL
     TIMES
+    WHILE
 
 Grammar
 
@@ -20,17 +23,21 @@ Rule 0     S' -> start
 Rule 1     start -> statement_list
 Rule 2     statement_list -> statement_list statement
 Rule 3     statement_list -> empty
-Rule 4     statement -> asignment SEMICOLON
-Rule 5     asignment -> IDENTIFIER ASSIGNMENT INTEGER_LITERAL
-Rule 6     empty -> <empty>
+Rule 4     statement -> asignment
+Rule 5     statement -> CONST asignment
+Rule 6     asignment -> TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON
+Rule 7     empty -> <empty>
 
 Terminals, with rules where they appear
 
-ASSIGNMENT           : 5
+ASSIGNMENT           : 6
 BOOLEAN_LITERAL      : 
+CONST                : 5
 DIVIDE               : 
-IDENTIFIER           : 5
-INTEGER_LITERAL      : 5
+ELSE                 : 
+IDENTIFIER           : 6
+IF                   : 
+INTEGER_LITERAL      : 6
 LBRACKET             : 
 LPAREN               : 
 MINUS                : 
@@ -38,14 +45,16 @@ PLUS                 :
 RBRACKET             : 
 REAL_LITERAL         : 
 RPAREN               : 
-SEMICOLON            : 4
+SEMICOLON            : 6
 STRING_LITERAL       : 
 TIMES                : 
+TYPE                 : 6
+WHILE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-asignment            : 4
+asignment            : 4 5
 empty                : 3
 start                : 0
 statement            : 2
@@ -59,10 +68,11 @@ state 0
     (1) start -> . statement_list
     (2) statement_list -> . statement_list statement
     (3) statement_list -> . empty
-    (6) empty -> .
+    (7) empty -> .
 
-    IDENTIFIER      reduce using rule 6 (empty -> .)
-    $end            reduce using rule 6 (empty -> .)
+    CONST           reduce using rule 7 (empty -> .)
+    TYPE            reduce using rule 7 (empty -> .)
+    $end            reduce using rule 7 (empty -> .)
 
     start                          shift and go to state 1
     statement_list                 shift and go to state 2
@@ -78,11 +88,13 @@ state 2
 
     (1) start -> statement_list .
     (2) statement_list -> statement_list . statement
-    (4) statement -> . asignment SEMICOLON
-    (5) asignment -> . IDENTIFIER ASSIGNMENT INTEGER_LITERAL
+    (4) statement -> . asignment
+    (5) statement -> . CONST asignment
+    (6) asignment -> . TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON
 
     $end            reduce using rule 1 (start -> statement_list .)
-    IDENTIFIER      shift and go to state 6
+    CONST           shift and go to state 6
+    TYPE            shift and go to state 7
 
     statement                      shift and go to state 4
     asignment                      shift and go to state 5
@@ -91,7 +103,8 @@ state 3
 
     (3) statement_list -> empty .
 
-    IDENTIFIER      reduce using rule 3 (statement_list -> empty .)
+    CONST           reduce using rule 3 (statement_list -> empty .)
+    TYPE            reduce using rule 3 (statement_list -> empty .)
     $end            reduce using rule 3 (statement_list -> empty .)
 
 
@@ -99,42 +112,71 @@ state 4
 
     (2) statement_list -> statement_list statement .
 
-    IDENTIFIER      reduce using rule 2 (statement_list -> statement_list statement .)
+    CONST           reduce using rule 2 (statement_list -> statement_list statement .)
+    TYPE            reduce using rule 2 (statement_list -> statement_list statement .)
     $end            reduce using rule 2 (statement_list -> statement_list statement .)
 
 
 state 5
 
-    (4) statement -> asignment . SEMICOLON
+    (4) statement -> asignment .
 
-    SEMICOLON       shift and go to state 7
+    CONST           reduce using rule 4 (statement -> asignment .)
+    TYPE            reduce using rule 4 (statement -> asignment .)
+    $end            reduce using rule 4 (statement -> asignment .)
 
 
 state 6
 
-    (5) asignment -> IDENTIFIER . ASSIGNMENT INTEGER_LITERAL
+    (5) statement -> CONST . asignment
+    (6) asignment -> . TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON
 
-    ASSIGNMENT      shift and go to state 8
+    TYPE            shift and go to state 7
 
+    asignment                      shift and go to state 8
 
 state 7
 
-    (4) statement -> asignment SEMICOLON .
+    (6) asignment -> TYPE . IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON
 
-    IDENTIFIER      reduce using rule 4 (statement -> asignment SEMICOLON .)
-    $end            reduce using rule 4 (statement -> asignment SEMICOLON .)
+    IDENTIFIER      shift and go to state 9
 
 
 state 8
 
-    (5) asignment -> IDENTIFIER ASSIGNMENT . INTEGER_LITERAL
+    (5) statement -> CONST asignment .
 
-    INTEGER_LITERAL shift and go to state 9
+    CONST           reduce using rule 5 (statement -> CONST asignment .)
+    TYPE            reduce using rule 5 (statement -> CONST asignment .)
+    $end            reduce using rule 5 (statement -> CONST asignment .)
 
 
 state 9
 
-    (5) asignment -> IDENTIFIER ASSIGNMENT INTEGER_LITERAL .
+    (6) asignment -> TYPE IDENTIFIER . ASSIGNMENT INTEGER_LITERAL SEMICOLON
 
-    SEMICOLON       reduce using rule 5 (asignment -> IDENTIFIER ASSIGNMENT INTEGER_LITERAL .)
+    ASSIGNMENT      shift and go to state 10
+
+
+state 10
+
+    (6) asignment -> TYPE IDENTIFIER ASSIGNMENT . INTEGER_LITERAL SEMICOLON
+
+    INTEGER_LITERAL shift and go to state 11
+
+
+state 11
+
+    (6) asignment -> TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL . SEMICOLON
+
+    SEMICOLON       shift and go to state 12
+
+
+state 12
+
+    (6) asignment -> TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON .
+
+    CONST           reduce using rule 6 (asignment -> TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON .)
+    TYPE            reduce using rule 6 (asignment -> TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON .)
+    $end            reduce using rule 6 (asignment -> TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON .)
 

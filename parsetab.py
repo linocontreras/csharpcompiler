@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ASSIGNMENT BOOLEAN_LITERAL DIVIDE IDENTIFIER INTEGER_LITERAL LBRACKET LPAREN MINUS PLUS RBRACKET REAL_LITERAL RPAREN SEMICOLON STRING_LITERAL TIMESstart : statement_liststatement_list : statement_list statement\n                          | emptystatement : asignment SEMICOLONasignment : IDENTIFIER ASSIGNMENT INTEGER_LITERALempty :'
+_lr_signature = 'ASSIGNMENT BOOLEAN_LITERAL CONST DIVIDE ELSE IDENTIFIER IF INTEGER_LITERAL LBRACKET LPAREN MINUS PLUS RBRACKET REAL_LITERAL RPAREN SEMICOLON STRING_LITERAL TIMES TYPE WHILEstart : statement_liststatement_list : statement_list statement\n                          | emptystatement : asignment\n                 | CONST asignmentasignment : TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLONempty :'
     
-_lr_action_items = {'IDENTIFIER':([0,2,3,4,7,],[-6,6,-3,-2,-4,]),'$end':([0,1,2,3,4,7,],[-6,0,-1,-3,-2,-4,]),'SEMICOLON':([5,9,],[7,-5,]),'ASSIGNMENT':([6,],[8,]),'INTEGER_LITERAL':([8,],[9,]),}
+_lr_action_items = {'CONST':([0,2,3,4,5,8,12,],[-7,6,-3,-2,-4,-5,-6,]),'TYPE':([0,2,3,4,5,6,8,12,],[-7,7,-3,-2,-4,7,-5,-6,]),'$end':([0,1,2,3,4,5,8,12,],[-7,0,-1,-3,-2,-4,-5,-6,]),'IDENTIFIER':([7,],[9,]),'ASSIGNMENT':([9,],[10,]),'INTEGER_LITERAL':([10,],[11,]),'SEMICOLON':([11,],[12,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'statement_list':([0,],[2,]),'empty':([0,],[3,]),'statement':([2,],[4,]),'asignment':([2,],[5,]),}
+_lr_goto_items = {'start':([0,],[1,]),'statement_list':([0,],[2,]),'empty':([0,],[3,]),'statement':([2,],[4,]),'asignment':([2,6,],[5,8,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -30,7 +30,8 @@ _lr_productions = [
   ('start -> statement_list','start',1,'p_start','syntax.py',10),
   ('statement_list -> statement_list statement','statement_list',2,'p_statement_list','syntax.py',14),
   ('statement_list -> empty','statement_list',1,'p_statement_list','syntax.py',15),
-  ('statement -> asignment SEMICOLON','statement',2,'p_statement','syntax.py',22),
-  ('asignment -> IDENTIFIER ASSIGNMENT INTEGER_LITERAL','asignment',3,'p_asignment','syntax.py',26),
-  ('empty -> <empty>','empty',0,'p_empty','syntax.py',30),
+  ('statement -> asignment','statement',1,'p_statement','syntax.py',22),
+  ('statement -> CONST asignment','statement',2,'p_statement','syntax.py',23),
+  ('asignment -> TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON','asignment',5,'p_asignment','syntax.py',27),
+  ('empty -> <empty>','empty',0,'p_empty','syntax.py',31),
 ]

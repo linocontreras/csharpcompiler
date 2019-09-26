@@ -19,11 +19,12 @@ def p_statement_list(p):
         p[0] = []
 
 def p_statement(p):
-    '''statement : asignment SEMICOLON'''
+    '''statement : asignment
+                 | CONST asignment'''
     p[0] = p[1]
 
 def p_asignment(p):
-    '''asignment : TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL'''
+    '''asignment : TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON'''
     p[0] = p[1]
 
 def p_empty(p):
@@ -34,7 +35,7 @@ def p_empty(p):
 def p_error(p):
     print("Syntax error in input!")
 
-def syntax_input(lexer, content, log):
+def syntax_input(lexer, content):
     parser = yacc.yacc()
     return parser.parse(content)
 

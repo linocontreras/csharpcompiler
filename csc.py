@@ -21,14 +21,6 @@ print("Compiling " + filename + "...")
 with open(filename) as f:
     content = f.read()
 
-logging.basicConfig(
-    level = logging.DEBUG,
-    filename = "parselog.txt",
-    filemode = "w",
-    format = "%(filename)10s:%(lineno)4d:%(message)s"
-)
-log = logging.getLogger()
+lex = lexer.lexer_input(content)
 
-lex = lexer.lexer_input(content, log)
-
-syntax.syntax_input(lex, content, log)
+syntax.syntax_input(lex, content)
