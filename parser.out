@@ -1,0 +1,140 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BOOLEAN_LITERAL
+    DIVIDE
+    LBRACKET
+    LPAREN
+    MINUS
+    PLUS
+    RBRACKET
+    REAL_LITERAL
+    RPAREN
+    STRING_LITERAL
+    TIMES
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> statement_list
+Rule 2     statement_list -> statement_list statement
+Rule 3     statement_list -> empty
+Rule 4     statement -> asignment SEMICOLON
+Rule 5     asignment -> IDENTIFIER ASSIGNMENT INTEGER_LITERAL
+Rule 6     empty -> <empty>
+
+Terminals, with rules where they appear
+
+ASSIGNMENT           : 5
+BOOLEAN_LITERAL      : 
+DIVIDE               : 
+IDENTIFIER           : 5
+INTEGER_LITERAL      : 5
+LBRACKET             : 
+LPAREN               : 
+MINUS                : 
+PLUS                 : 
+RBRACKET             : 
+REAL_LITERAL         : 
+RPAREN               : 
+SEMICOLON            : 4
+STRING_LITERAL       : 
+TIMES                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignment            : 4
+empty                : 3
+start                : 0
+statement            : 2
+statement_list       : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . statement_list
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . empty
+    (6) empty -> .
+
+    IDENTIFIER      reduce using rule 6 (empty -> .)
+    $end            reduce using rule 6 (empty -> .)
+
+    start                          shift and go to state 1
+    statement_list                 shift and go to state 2
+    empty                          shift and go to state 3
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> statement_list .
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . asignment SEMICOLON
+    (5) asignment -> . IDENTIFIER ASSIGNMENT INTEGER_LITERAL
+
+    $end            reduce using rule 1 (start -> statement_list .)
+    IDENTIFIER      shift and go to state 6
+
+    statement                      shift and go to state 4
+    asignment                      shift and go to state 5
+
+state 3
+
+    (3) statement_list -> empty .
+
+    IDENTIFIER      reduce using rule 3 (statement_list -> empty .)
+    $end            reduce using rule 3 (statement_list -> empty .)
+
+
+state 4
+
+    (2) statement_list -> statement_list statement .
+
+    IDENTIFIER      reduce using rule 2 (statement_list -> statement_list statement .)
+    $end            reduce using rule 2 (statement_list -> statement_list statement .)
+
+
+state 5
+
+    (4) statement -> asignment . SEMICOLON
+
+    SEMICOLON       shift and go to state 7
+
+
+state 6
+
+    (5) asignment -> IDENTIFIER . ASSIGNMENT INTEGER_LITERAL
+
+    ASSIGNMENT      shift and go to state 8
+
+
+state 7
+
+    (4) statement -> asignment SEMICOLON .
+
+    IDENTIFIER      reduce using rule 4 (statement -> asignment SEMICOLON .)
+    $end            reduce using rule 4 (statement -> asignment SEMICOLON .)
+
+
+state 8
+
+    (5) asignment -> IDENTIFIER ASSIGNMENT . INTEGER_LITERAL
+
+    INTEGER_LITERAL shift and go to state 9
+
+
+state 9
+
+    (5) asignment -> IDENTIFIER ASSIGNMENT INTEGER_LITERAL .
+
+    SEMICOLON       reduce using rule 5 (asignment -> IDENTIFIER ASSIGNMENT INTEGER_LITERAL .)
+
