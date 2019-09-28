@@ -6,5 +6,12 @@ while (true)
     {
         double c = 10;
     }
+    else
+    {
+        if (true)
+        {
+            double d = 100;
+        }
+    }
     bool b = true;
 }

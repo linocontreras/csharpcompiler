@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ASSIGNMENT BOOL COMMA CONST DIVIDE DOT DOUBLE DOUBLE_LITERAL ELSE FALSE IDENTIFIER IF INT INTEGER_LITERAL LBRACKET LPAREN MINUS PLUS RBRACKET RPAREN SEMICOLON STRING STRING_LITERAL TIMES TRUE TYPE WHILEstart : statement_liststatement_list : statement_list statement\n                      | emptystatement : asignment\n                 | CONST asignment\n                 | block_statement\n                 | call SEMICOLONasignment : type IDENTIFIER ASSIGNMENT expression SEMICOLONexpression : int_expression\n                  | double_expression\n                  | string_expression\n                  | bool_expression\n                  | callblock_statement : if\n                       | whileif : IF LPAREN bool_expression RPAREN block_or_statementwhile : WHILE LPAREN bool_expression RPAREN block_or_statementblock_or_statement : statement\n                          | blockblock : LBRACKET statement_list RBRACKETint_expression : INTEGER_LITERALfqn : IDENTIFIER\n           | fqn DOT IDENTIFIERtype_name : type IDENTIFIERarguments : arguments COMMA type_name\n                | type_name\n                | emptyarguments_call : arguments_call COMMA expression\n                      | expression\n                      | emptycall : fqn LPAREN arguments_call RPARENdouble_expression : DOUBLE_LITERALstring_expression : STRING_LITERAL\n                         | callbool_expression : TRUE\n                       | FALSEtype : INT\n            | DOUBLE\n            | STRING\n            | BOOLempty :'
+_lr_signature = 'ASSIGNMENT BOOL COMMA CONST DIVIDE DOT DOUBLE DOUBLE_LITERAL ELSE FALSE IDENTIFIER IF INT INTEGER_LITERAL LBRACKET LPAREN MINUS PLUS RBRACKET RPAREN SEMICOLON STRING STRING_LITERAL TIMES TRUE TYPE WHILEstart : statement_liststatement_list : statement_list statement\n                      | emptystatement : asignment\n                 | CONST asignment\n                 | block_statement\n                 | call SEMICOLONasignment : type IDENTIFIER ASSIGNMENT expression SEMICOLONexpression : int_expression\n                  | double_expression\n                  | string_expression\n                  | bool_expression\n                  | callblock_statement : if\n                       | whileif : IF LPAREN bool_expression RPAREN block_or_statement elseelse : ELSE block_or_statement\n            | emptywhile : WHILE LPAREN bool_expression RPAREN block_or_statementblock_or_statement : statement\n                          | blockblock : LBRACKET statement_list RBRACKETint_expression : INTEGER_LITERALfqn : IDENTIFIER\n           | fqn DOT IDENTIFIERtype_name : type IDENTIFIERarguments : arguments COMMA type_name\n                | type_name\n                | emptyarguments_call : arguments_call COMMA expression\n                      | expression\n                      | emptycall : fqn LPAREN arguments_call RPARENdouble_expression : DOUBLE_LITERALstring_expression : STRING_LITERALbool_expression : TRUE\n                       | FALSEtype : INT\n            | DOUBLE\n            | STRING\n            | BOOLempty :'
     
-_lr_action_items = {'CONST':([0,2,3,4,5,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,],[-41,6,-3,-2,-4,-6,-14,-15,-5,-7,6,6,-8,-16,-18,-19,-41,-17,6,-20,]),'INT':([0,2,3,4,5,6,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,],[-41,14,-3,-2,-4,14,-6,-14,-15,-5,-7,14,14,-8,-16,-18,-19,-41,-17,14,-20,]),'DOUBLE':([0,2,3,4,5,6,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,],[-41,15,-3,-2,-4,15,-6,-14,-15,-5,-7,15,15,-8,-16,-18,-19,-41,-17,15,-20,]),'STRING':([0,2,3,4,5,6,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,],[-41,16,-3,-2,-4,16,-6,-14,-15,-5,-7,16,16,-8,-16,-18,-19,-41,-17,16,-20,]),'BOOL':([0,2,3,4,5,6,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,],[-41,17,-3,-2,-4,17,-6,-14,-15,-5,-7,17,17,-8,-16,-18,-19,-41,-17,17,-20,]),'IF':([0,2,3,4,5,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,],[-41,18,-3,-2,-4,-6,-14,-15,-5,-7,18,18,-8,-16,-18,-19,-41,-17,18,-20,]),'WHILE':([0,2,3,4,5,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,],[-41,19,-3,-2,-4,-6,-14,-15,-5,-7,19,19,-8,-16,-18,-19,-41,-17,19,-20,]),'IDENTIFIER':([0,2,3,4,5,7,9,11,12,14,15,16,17,20,21,23,24,27,46,47,48,49,51,52,53,54,55,56,57,],[-41,10,-3,-2,-4,-6,22,-14,-15,-37,-38,-39,-40,-5,-7,10,41,10,10,10,10,-8,-16,-18,-19,-41,-17,10,-20,]),'$end':([0,1,2,3,4,5,7,11,12,20,21,49,51,52,53,55,57,],[-41,0,-1,-3,-2,-4,-6,-14,-15,-5,-7,-8,-16,-18,-19,-17,-20,]),'RBRACKET':([3,4,5,7,11,12,20,21,49,51,52,53,54,55,56,57,],[-3,-2,-4,-6,-14,-15,-5,-7,-8,-16,-18,-19,-41,-17,57,-20,]),'SEMICOLON':([8,31,32,33,34,35,36,37,38,39,40,44,45,],[21,-9,-10,-11,-12,-13,-21,-32,-33,-35,-36,49,-31,]),'LPAREN':([10,13,18,19,41,],[-22,23,25,26,-23,]),'DOT':([10,13,41,],[-22,24,-23,]),'ASSIGNMENT':([22,],[27,]),'RPAREN':([23,28,29,30,31,32,33,34,35,36,37,38,39,40,42,43,45,50,],[-41,45,-29,-30,-9,-10,-11,-12,-13,-21,-32,-33,-35,-36,47,48,-31,-28,]),'COMMA':([23,28,29,30,31,32,33,34,35,36,37,38,39,40,45,50,],[-41,46,-29,-30,-9,-10,-11,-12,-13,-21,-32,-33,-35,-36,-31,-28,]),'INTEGER_LITERAL':([23,27,46,],[36,36,36,]),'DOUBLE_LITERAL':([23,27,46,],[37,37,37,]),'STRING_LITERAL':([23,27,46,],[38,38,38,]),'TRUE':([23,25,26,27,46,],[39,39,39,39,39,]),'FALSE':([23,25,26,27,46,],[40,40,40,40,40,]),'LBRACKET':([47,48,],[54,54,]),}
+_lr_action_items = {'CONST':([0,2,3,4,5,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,58,59,60,61,],[-42,6,-3,-2,-4,-6,-14,-15,-5,-7,6,6,-8,-42,-20,-21,-42,-19,-16,6,-18,6,-17,-22,]),'INT':([0,2,3,4,5,6,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,58,59,60,61,],[-42,14,-3,-2,-4,14,-6,-14,-15,-5,-7,14,14,-8,-42,-20,-21,-42,-19,-16,14,-18,14,-17,-22,]),'DOUBLE':([0,2,3,4,5,6,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,58,59,60,61,],[-42,15,-3,-2,-4,15,-6,-14,-15,-5,-7,15,15,-8,-42,-20,-21,-42,-19,-16,15,-18,15,-17,-22,]),'STRING':([0,2,3,4,5,6,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,58,59,60,61,],[-42,16,-3,-2,-4,16,-6,-14,-15,-5,-7,16,16,-8,-42,-20,-21,-42,-19,-16,16,-18,16,-17,-22,]),'BOOL':([0,2,3,4,5,6,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,58,59,60,61,],[-42,17,-3,-2,-4,17,-6,-14,-15,-5,-7,17,17,-8,-42,-20,-21,-42,-19,-16,17,-18,17,-17,-22,]),'IF':([0,2,3,4,5,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,58,59,60,61,],[-42,18,-3,-2,-4,-6,-14,-15,-5,-7,18,18,-8,-42,-20,-21,-42,-19,-16,18,-18,18,-17,-22,]),'WHILE':([0,2,3,4,5,7,11,12,20,21,47,48,49,51,52,53,54,55,56,57,58,59,60,61,],[-42,19,-3,-2,-4,-6,-14,-15,-5,-7,19,19,-8,-42,-20,-21,-42,-19,-16,19,-18,19,-17,-22,]),'IDENTIFIER':([0,2,3,4,5,7,9,11,12,14,15,16,17,20,21,23,24,27,46,47,48,49,51,52,53,54,55,56,57,58,59,60,61,],[-42,10,-3,-2,-4,-6,22,-14,-15,-38,-39,-40,-41,-5,-7,10,41,10,10,10,10,-8,-42,-20,-21,-42,-19,-16,10,-18,10,-17,-22,]),'$end':([0,1,2,3,4,5,7,11,12,20,21,49,51,52,53,55,56,58,60,61,],[-42,0,-1,-3,-2,-4,-6,-14,-15,-5,-7,-8,-42,-20,-21,-19,-16,-18,-17,-22,]),'RBRACKET':([3,4,5,7,11,12,20,21,49,51,52,53,54,55,56,58,59,60,61,],[-3,-2,-4,-6,-14,-15,-5,-7,-8,-42,-20,-21,-42,-19,-16,-18,61,-17,-22,]),'ELSE':([5,7,11,12,20,21,49,51,52,53,55,56,58,60,61,],[-4,-6,-14,-15,-5,-7,-8,57,-20,-21,-19,-16,-18,-17,-22,]),'SEMICOLON':([8,31,32,33,34,35,36,37,38,39,40,44,45,],[21,-9,-10,-11,-12,-13,-23,-34,-35,-36,-37,49,-33,]),'LPAREN':([10,13,18,19,41,],[-24,23,25,26,-25,]),'DOT':([10,13,41,],[-24,24,-25,]),'ASSIGNMENT':([22,],[27,]),'RPAREN':([23,28,29,30,31,32,33,34,35,36,37,38,39,40,42,43,45,50,],[-42,45,-31,-32,-9,-10,-11,-12,-13,-23,-34,-35,-36,-37,47,48,-33,-30,]),'COMMA':([23,28,29,30,31,32,33,34,35,36,37,38,39,40,45,50,],[-42,46,-31,-32,-9,-10,-11,-12,-13,-23,-34,-35,-36,-37,-33,-30,]),'INTEGER_LITERAL':([23,27,46,],[36,36,36,]),'DOUBLE_LITERAL':([23,27,46,],[37,37,37,]),'STRING_LITERAL':([23,27,46,],[38,38,38,]),'TRUE':([23,25,26,27,46,],[39,39,39,39,39,]),'FALSE':([23,25,26,27,46,],[40,40,40,40,40,]),'LBRACKET':([47,48,57,],[54,54,54,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'statement_list':([0,54,],[2,56,]),'empty':([0,23,54,],[3,30,3,]),'statement':([2,47,48,56,],[4,52,52,4,]),'asignment':([2,6,47,48,56,],[5,20,5,5,5,]),'block_statement':([2,47,48,56,],[7,7,7,7,]),'call':([2,23,27,46,47,48,56,],[8,35,35,35,8,8,8,]),'type':([2,6,47,48,56,],[9,9,9,9,9,]),'if':([2,47,48,56,],[11,11,11,11,]),'while':([2,47,48,56,],[12,12,12,12,]),'fqn':([2,23,27,46,47,48,56,],[13,13,13,13,13,13,13,]),'arguments_call':([23,],[28,]),'expression':([23,27,46,],[29,44,50,]),'int_expression':([23,27,46,],[31,31,31,]),'double_expression':([23,27,46,],[32,32,32,]),'string_expression':([23,27,46,],[33,33,33,]),'bool_expression':([23,25,26,27,46,],[34,42,43,34,34,]),'block_or_statement':([47,48,],[51,55,]),'block':([47,48,],[53,53,]),}
+_lr_goto_items = {'start':([0,],[1,]),'statement_list':([0,54,],[2,59,]),'empty':([0,23,51,54,],[3,30,58,3,]),'statement':([2,47,48,57,59,],[4,52,52,52,4,]),'asignment':([2,6,47,48,57,59,],[5,20,5,5,5,5,]),'block_statement':([2,47,48,57,59,],[7,7,7,7,7,]),'call':([2,23,27,46,47,48,57,59,],[8,35,35,35,8,8,8,8,]),'type':([2,6,47,48,57,59,],[9,9,9,9,9,9,]),'if':([2,47,48,57,59,],[11,11,11,11,11,]),'while':([2,47,48,57,59,],[12,12,12,12,12,]),'fqn':([2,23,27,46,47,48,57,59,],[13,13,13,13,13,13,13,13,]),'arguments_call':([23,],[28,]),'expression':([23,27,46,],[29,44,50,]),'int_expression':([23,27,46,],[31,31,31,]),'double_expression':([23,27,46,],[32,32,32,]),'string_expression':([23,27,46,],[33,33,33,]),'bool_expression':([23,25,26,27,46,],[34,42,43,34,34,]),'block_or_statement':([47,48,57,],[51,55,60,]),'block':([47,48,57,],[53,53,53,]),'else':([51,],[56,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -42,30 +42,31 @@ _lr_productions = [
   ('expression -> call','expression',1,'p_expression','syntax.py',37),
   ('block_statement -> if','block_statement',1,'p_block_statement','syntax.py',40),
   ('block_statement -> while','block_statement',1,'p_block_statement','syntax.py',41),
-  ('if -> IF LPAREN bool_expression RPAREN block_or_statement','if',5,'p_if','syntax.py',44),
-  ('while -> WHILE LPAREN bool_expression RPAREN block_or_statement','while',5,'p_while','syntax.py',47),
-  ('block_or_statement -> statement','block_or_statement',1,'p_block_or_statement','syntax.py',50),
-  ('block_or_statement -> block','block_or_statement',1,'p_block_or_statement','syntax.py',51),
-  ('block -> LBRACKET statement_list RBRACKET','block',3,'p_block','syntax.py',54),
-  ('int_expression -> INTEGER_LITERAL','int_expression',1,'p_int_expression','syntax.py',57),
-  ('fqn -> IDENTIFIER','fqn',1,'p_fqn','syntax.py',61),
-  ('fqn -> fqn DOT IDENTIFIER','fqn',3,'p_fqn','syntax.py',62),
-  ('type_name -> type IDENTIFIER','type_name',2,'p_type_name','syntax.py',65),
-  ('arguments -> arguments COMMA type_name','arguments',3,'p_arguments','syntax.py',68),
-  ('arguments -> type_name','arguments',1,'p_arguments','syntax.py',69),
-  ('arguments -> empty','arguments',1,'p_arguments','syntax.py',70),
-  ('arguments_call -> arguments_call COMMA expression','arguments_call',3,'p_arguments_call','syntax.py',73),
-  ('arguments_call -> expression','arguments_call',1,'p_arguments_call','syntax.py',74),
-  ('arguments_call -> empty','arguments_call',1,'p_arguments_call','syntax.py',75),
-  ('call -> fqn LPAREN arguments_call RPAREN','call',4,'p_call','syntax.py',78),
-  ('double_expression -> DOUBLE_LITERAL','double_expression',1,'p_double_expression','syntax.py',81),
-  ('string_expression -> STRING_LITERAL','string_expression',1,'p_string_expression','syntax.py',85),
-  ('string_expression -> call','string_expression',1,'p_string_expression','syntax.py',86),
-  ('bool_expression -> TRUE','bool_expression',1,'p_bool_expression','syntax.py',90),
-  ('bool_expression -> FALSE','bool_expression',1,'p_bool_expression','syntax.py',91),
-  ('type -> INT','type',1,'p_type','syntax.py',95),
-  ('type -> DOUBLE','type',1,'p_type','syntax.py',96),
-  ('type -> STRING','type',1,'p_type','syntax.py',97),
-  ('type -> BOOL','type',1,'p_type','syntax.py',98),
-  ('empty -> <empty>','empty',0,'p_empty','syntax.py',102),
+  ('if -> IF LPAREN bool_expression RPAREN block_or_statement else','if',6,'p_if','syntax.py',44),
+  ('else -> ELSE block_or_statement','else',2,'p_else','syntax.py',47),
+  ('else -> empty','else',1,'p_else','syntax.py',48),
+  ('while -> WHILE LPAREN bool_expression RPAREN block_or_statement','while',5,'p_while','syntax.py',51),
+  ('block_or_statement -> statement','block_or_statement',1,'p_block_or_statement','syntax.py',54),
+  ('block_or_statement -> block','block_or_statement',1,'p_block_or_statement','syntax.py',55),
+  ('block -> LBRACKET statement_list RBRACKET','block',3,'p_block','syntax.py',58),
+  ('int_expression -> INTEGER_LITERAL','int_expression',1,'p_int_expression','syntax.py',61),
+  ('fqn -> IDENTIFIER','fqn',1,'p_fqn','syntax.py',65),
+  ('fqn -> fqn DOT IDENTIFIER','fqn',3,'p_fqn','syntax.py',66),
+  ('type_name -> type IDENTIFIER','type_name',2,'p_type_name','syntax.py',69),
+  ('arguments -> arguments COMMA type_name','arguments',3,'p_arguments','syntax.py',72),
+  ('arguments -> type_name','arguments',1,'p_arguments','syntax.py',73),
+  ('arguments -> empty','arguments',1,'p_arguments','syntax.py',74),
+  ('arguments_call -> arguments_call COMMA expression','arguments_call',3,'p_arguments_call','syntax.py',77),
+  ('arguments_call -> expression','arguments_call',1,'p_arguments_call','syntax.py',78),
+  ('arguments_call -> empty','arguments_call',1,'p_arguments_call','syntax.py',79),
+  ('call -> fqn LPAREN arguments_call RPAREN','call',4,'p_call','syntax.py',82),
+  ('double_expression -> DOUBLE_LITERAL','double_expression',1,'p_double_expression','syntax.py',85),
+  ('string_expression -> STRING_LITERAL','string_expression',1,'p_string_expression','syntax.py',89),
+  ('bool_expression -> TRUE','bool_expression',1,'p_bool_expression','syntax.py',93),
+  ('bool_expression -> FALSE','bool_expression',1,'p_bool_expression','syntax.py',94),
+  ('type -> INT','type',1,'p_type','syntax.py',98),
+  ('type -> DOUBLE','type',1,'p_type','syntax.py',99),
+  ('type -> STRING','type',1,'p_type','syntax.py',100),
+  ('type -> BOOL','type',1,'p_type','syntax.py',101),
+  ('empty -> <empty>','empty',0,'p_empty','syntax.py',105),
 ]

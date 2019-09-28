@@ -41,7 +41,11 @@ def p_block_statement(p):
                        | while'''
 
 def p_if(p):
-    '''if : IF LPAREN bool_expression RPAREN block_or_statement'''
+    '''if : IF LPAREN bool_expression RPAREN block_or_statement else'''
+
+def p_else(p):
+    '''else : ELSE block_or_statement
+            | empty'''
 
 def p_while(p):
     '''while : WHILE LPAREN bool_expression RPAREN block_or_statement'''
@@ -82,8 +86,7 @@ def p_double_expression(p):
     p[0] = p[1]
 
 def p_string_expression(p):
-    '''string_expression : STRING_LITERAL
-                         | call'''
+    '''string_expression : STRING_LITERAL'''
     p[0] = p[1]
 
 def p_bool_expression(p):
@@ -104,8 +107,8 @@ def p_empty(p):
 
 # Error rule for syntax errors
 def p_error(p):
-    print("Syntax error in input!")
-    print(p)
+    print("Syntax error on line " + str(p.lineno))
+    print("Unexpected : " + str(p.value))
 
 def syntax_input(lexer, content):
     parser = yacc.yacc()

@@ -1,0 +1,1 @@
+cons z "Lorem impsum" = 10;
