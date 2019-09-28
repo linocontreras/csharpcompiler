@@ -7,7 +7,13 @@ keywords = {
     'if': 'IF',
     'else': 'ELSE',
     'while': 'WHILE',
-    'const': 'CONST'
+    'const': 'CONST',
+    'int' : 'INT',
+    'double' : 'DOUBLE',
+    'string' : 'STRING',
+    'bool' : 'BOOL',
+    'true' : 'TRUE',
+    'false' : 'FALSE',
 }
 # List of token names.   This is always required
 tokens = list(keywords.values()) + [
@@ -21,8 +27,7 @@ tokens = list(keywords.values()) + [
 'ASSIGNMENT',
 # Literals
 'INTEGER_LITERAL',
-'REAL_LITERAL',
-'BOOLEAN_LITERAL',
+'DOUBLE_LITERAL',
 'STRING_LITERAL',
 # Types
 'TYPE',
@@ -37,13 +42,7 @@ tokens = list(keywords.values()) + [
 def t_IDENTIFIER(t):
     r'([a-zA-Z]|_)(_|[a-zA-Z]|[0-9])*'
     t.type = keywords.get(t.value, 'IDENTIFIER')
-    if t.type == 'IDENTIFIER':
-        if re.match(t_TYPE, t.value) != None:
-            t.type = 'TYPE'
     return t
-
-# Regular expression rules for simple tokens
-t_TYPE = r'int|float|bool|string'
 
 # Operators
 t_PLUS    = r'\+'
@@ -57,8 +56,7 @@ t_ASSIGNMENT = r'=|\+=|-=|\*=|/='
 
 # Literals
 t_INTEGER_LITERAL = r'[0-9]+'
-t_REAL_LITERAL = r'[0-9]+.[0-9]+((e|E)(\+|-)?[0-9]+)?'
-t_BOOLEAN_LITERAL = r'true|false'
+t_DOUBLE_LITERAL = r'[0-9]+.[0-9]+((e|E)(\+|-)?[0-9]+)?'
 t_STRING_LITERAL = r'"(.*)"'
 
 # Delimiters

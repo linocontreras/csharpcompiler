@@ -1,10 +1,10 @@
 int a = 0;
 
-while(a < 100)
+while (true)
 {
-    if(a % 2 == 0)
+    if (false)
     {
-        a = a + 13;
+        double c = 10;
     }
-    a = a + a;
+    bool b = true;
 }

@@ -12,7 +12,7 @@ def p_start(p):
 
 def p_statement_list(p):
     '''statement_list : statement_list statement
-                          | empty'''
+                      | empty'''
     if len(p) == 3:
         p[0] = p[1] + [p[2]]
     else:
@@ -20,11 +20,59 @@ def p_statement_list(p):
 
 def p_statement(p):
     '''statement : asignment
-                 | CONST asignment'''
+                 | CONST asignment
+                 | block_statement'''
     p[0] = p[1]
 
 def p_asignment(p):
-    '''asignment : TYPE IDENTIFIER ASSIGNMENT INTEGER_LITERAL SEMICOLON'''
+    '''asignment : type IDENTIFIER ASSIGNMENT expression SEMICOLON'''
+    p[0] = p[1]
+
+def p_expression(p):
+    '''expression : int_expression
+                  | double_expression
+                  | string_expression
+                  | bool_expression'''
+
+def p_block_statement(p):
+    '''block_statement : if
+                       | while'''
+
+def p_if(p):
+    '''if : IF LPAREN bool_expression RPAREN block_or_statement'''
+
+def p_while(p):
+    '''while : WHILE LPAREN bool_expression RPAREN block_or_statement'''
+
+def p_block_or_statement(p):
+    '''block_or_statement : statement
+                          | block'''
+
+def p_block(p):
+    '''block : LBRACKET statement_list RBRACKET'''
+
+def p_int_expression(p):
+    '''int_expression : INTEGER_LITERAL'''
+    p[0] = p[1]
+
+def p_double_expression(p):
+    '''double_expression : DOUBLE_LITERAL'''
+    p[0] = p[1]
+
+def p_string_expression(p):
+    '''string_expression : STRING_LITERAL'''
+    p[0] = p[1]
+
+def p_bool_expression(p):
+    '''bool_expression : TRUE
+                       | FALSE'''
+    p[0] = p[1]
+
+def p_type(p):
+    '''type : INT
+            | DOUBLE
+            | STRING
+            | BOOL'''
     p[0] = p[1]
 
 def p_empty(p):
@@ -34,6 +82,7 @@ def p_empty(p):
 # Error rule for syntax errors
 def p_error(p):
     print("Syntax error in input!")
+    print(p)
 
 def syntax_input(lexer, content):
     parser = yacc.yacc()

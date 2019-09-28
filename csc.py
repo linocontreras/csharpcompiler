@@ -14,7 +14,7 @@ if len(sys.argv) != 2:
 # Define a filename.
 filename = sys.argv[1]
 
-print("Compiling " + filename + "...")
+print("Compiling " + filename + " ...")
 
 # Open the file as f.
 # The function readlines() reads the file.
