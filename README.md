@@ -11,3 +11,10 @@ pip install -r requirements.txt
 ```
 ./csc.py inputfile.cs
 ```
+
+## Tests
+
+For runnning the test suite:
+```
+./test.sh
+```
