@@ -37,6 +37,8 @@ tokens = list(keywords.values()) + [
 'LBRACKET',
 'RBRACKET',
 'SEMICOLON',
+'DOT',
+'COMMA'
 ]
 
 def t_IDENTIFIER(t):
@@ -65,7 +67,8 @@ t_RPAREN  = r'\)'
 t_LBRACKET = r'\{'
 t_RBRACKET = r'\}'
 t_SEMICOLON = r';'
-
+t_DOT = r'\.'
+t_COMMA = r','
 
 # Define a rule so we can track line numbers
 def t_newline(t):

@@ -21,7 +21,8 @@ def p_statement_list(p):
 def p_statement(p):
     '''statement : asignment
                  | CONST asignment
-                 | block_statement'''
+                 | block_statement
+                 | call SEMICOLON'''
     p[0] = p[1]
 
 def p_asignment(p):
@@ -32,7 +33,8 @@ def p_expression(p):
     '''expression : int_expression
                   | double_expression
                   | string_expression
-                  | bool_expression'''
+                  | bool_expression
+                  | call'''
 
 def p_block_statement(p):
     '''block_statement : if
@@ -55,12 +57,33 @@ def p_int_expression(p):
     '''int_expression : INTEGER_LITERAL'''
     p[0] = p[1]
 
+def p_fqn(p):
+    '''fqn : IDENTIFIER
+           | fqn DOT IDENTIFIER'''
+
+def p_type_name(p):
+    '''type_name : type IDENTIFIER''' 
+
+def p_arguments(p):
+    '''arguments : arguments COMMA type_name
+                | type_name
+                | empty'''
+
+def p_arguments_call(p):
+    '''arguments_call : arguments_call COMMA expression
+                      | expression
+                      | empty'''
+
+def p_call(p):
+    '''call : fqn LPAREN arguments_call RPAREN'''
+
 def p_double_expression(p):
     '''double_expression : DOUBLE_LITERAL'''
     p[0] = p[1]
 
 def p_string_expression(p):
-    '''string_expression : STRING_LITERAL'''
+    '''string_expression : STRING_LITERAL
+                         | call'''
     p[0] = p[1]
 
 def p_bool_expression(p):
