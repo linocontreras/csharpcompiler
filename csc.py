@@ -23,4 +23,6 @@ with open(filename) as f:
 
 lex = lexer.lexer_input(content)
 
-syntax.syntax_input(lex, content)
+ast = syntax.syntax_input(lex, content)
+
+ast.printAST(0)
