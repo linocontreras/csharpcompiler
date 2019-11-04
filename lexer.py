@@ -14,23 +14,22 @@ keywords = {
     'bool' : 'BOOL',
     'true' : 'TRUE',
     'false' : 'FALSE',
+    'class': 'CLASS',
+    'void': 'VOID',
+    #'static': 'STATIC',
+    'public': 'PUBLIC',
+    'private': 'PRIVATE',
 }
 # List of token names.   This is always required
 tokens = list(keywords.values()) + [
 'IDENTIFIER',
-# Operators
-'PLUS',
-'MINUS',
-'TIMES',
-'DIVIDE',
+
 # Assignments
 'ASSIGNMENT',
 # Literals
 'INTEGER_LITERAL',
 'DOUBLE_LITERAL',
 'STRING_LITERAL',
-# Types
-'TYPE',
 # Delimiters
 'LPAREN',
 'RPAREN',
@@ -45,12 +44,6 @@ def t_IDENTIFIER(t):
     r'([a-zA-Z]|_)(_|[a-zA-Z]|[0-9])*'
     t.type = keywords.get(t.value, 'IDENTIFIER')
     return t
-
-# Operators
-t_PLUS    = r'\+'
-t_MINUS = r'-'
-t_TIMES = r'\*'
-t_DIVIDE = r'/'
 
 t_ASSIGNMENT = r'=|\+=|-=|\*=|/='
 

@@ -7,12 +7,24 @@ import lexer
 import syntax
 import logging
 
-if len(sys.argv) != 2:
-    print("Usage: " + sys.argv[0] + " <input.cs>")
+argc = len(sys.argv)
+
+if argc < 2 or argc > 3:
+    print("Usage: " + sys.argv[0] + " [-ast] <input.cs>")
     exit(1)
 
+if argc == 2:
+    filename = sys.argv[1]
+    ast = False
+
+if argc == 3:
+    if sys.argv[1] != '-ast':
+        print("Usage: " + sys.argv[0] + " [-ast] <input.cs>")
+        exit(1)
+    ast = True
+    filename = sys.argv[2]
+
 # Define a filename.
-filename = sys.argv[1]
 
 print("Compiling " + filename + " ...")
 
@@ -23,6 +35,7 @@ with open(filename) as f:
 
 lex = lexer.lexer_input(content)
 
-ast = syntax.syntax_input(lex, content)
+root = syntax.syntax_input(lex, content)
 
-ast.printAST(0)
+if ast:
+    root.printAST()

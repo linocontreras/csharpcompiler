@@ -1,1 +1,4 @@
-int a = 2;
+class Test3
+{
+    int a = 4;
+}

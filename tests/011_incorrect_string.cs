@@ -1,1 +1,5 @@
-cons z "Lorem impsum" = 10;
+class Test11
+{
+    const string "Lorem impsum" = 10;
+
+}

@@ -1,17 +1,25 @@
-int a = 0;
 
-while (true)
+class Test7
 {
-    if (false)
+    void Test()
     {
-        double c = 10;
-    }
-    else
-    {
-        if (true)
+        int a = 0;
+
+        while (true)
         {
-            double d = 100;
+            if (false)
+            {
+                double c = 10.83;
+            }
+            else
+            {
+                if (true)
+                {
+                    double d = 100;
+                }
+            }
+
+            bool b = true;
         }
-    }
-    bool b = true;
+    }    
 }

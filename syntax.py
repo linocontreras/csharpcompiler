@@ -8,8 +8,60 @@ from node import *
 tokens = lexer.tokens
 
 def p_start(p):
-    'start : statement_list'
+    '''start : class_list'''
     p[0] = Node('program', [p[1]])
+
+def p_class_list(p):
+    '''class_list : class_list class
+                  | empty'''
+    if len(p) == 3:
+        p[0] = Node('class_list', [p[1], p[2]])
+    else:
+        p[0] = Node('class_list')
+
+def p_class(p):
+    '''class : access CLASS IDENTIFIER LBRACKET class_body RBRACKET'''
+    p[0] = Node('class', [p[1], p[5]], p[3])
+
+def p_class_body(p):
+    '''class_body : class_body method
+                  | class_body class_variable
+                  | class_body constant
+                  | empty'''
+    if len(p) == 3:
+        p[0] = Node('class_body', [p[1], p[2]])
+    else:
+        p[0] = Node('class_body')
+
+# def p_method_list(p):
+#     '''method_list : method_list method
+#                    | empty'''
+#     if len(p) == 3:
+#         p[0] = Node('method_list', [p[1], p[2]])
+#     else:
+#         p[0] = Node('method_list')
+
+def p_class_variable(p):
+    '''class_variable : access type IDENTIFIER SEMICOLON
+                      | access type IDENTIFIER ASSIGNMENT expression SEMICOLON'''
+    if len(p) == 5:
+        p[0] = Node('class_variable', [p[1], p[2]], p[3])
+    else:
+        p[0] = Node('class_variable', [p[1], p[2], p[5]], f'{p[3]} {p[4]}')
+
+
+def p_method(p):
+    '''method : access type IDENTIFIER LPAREN arguments RPAREN block'''
+    p[0] = Node('method', [p[1], p[2], p[5], p[7]], p[3])
+
+def p_access(p):
+    '''access : PUBLIC
+              | PRIVATE
+              | empty'''
+    if p[1] is not None:
+        p[0] = Node('access', None, p[1])
+    else:
+        p[0] = Node('access')
 
 def p_statement_list(p):
     '''statement_list : statement_list statement
@@ -20,20 +72,28 @@ def p_statement_list(p):
         p[0] = Node('statement_list')
 
 def p_statement(p):
-    '''statement : asignment
+    '''statement : var_declaration
+                 | asignment
                  | constant
                  | block_statement
                  | call SEMICOLON'''
     p[0] = Node('statement', [p[1]])
 
 def p_constant(p):
-    '''constant : CONST asignment'''
+    '''constant : CONST var_declaration'''
     p[0] = Node('constant', [p[2]])
 
+def p_var_declaration(p):
+    '''var_declaration : type IDENTIFIER SEMICOLON
+                       | type IDENTIFIER ASSIGNMENT expression SEMICOLON'''
+    if len(p) == 4:
+        p[0] = Node('var_declaration', [p[1]], p[2])
+    else:
+        p[0] = Node('var_declaration', [p[1], p[4]], f'{p[2]} {p[3]}')
 
 def p_asignment(p):
-    '''asignment : type fqn ASSIGNMENT expression SEMICOLON'''
-    p[0] = Node('assignment', [p[1], p[2], p[4]], p[3])
+    '''asignment : fqn ASSIGNMENT expression SEMICOLON'''
+    p[0] = Node('assignment', [p[1], p[3]], p[2])
 
 def p_expression(p):
     '''expression : int_expression
@@ -83,7 +143,7 @@ def p_fqn(p):
     if len(p) == 2:
         p[0] = Node('fqn', None, p[1])
     else:
-        p[0] = Node('fqn', [p[1]], p[2])
+        p[0] = Node('fqn', [p[1]], p[3])
 
 def p_type_name(p):
     '''type_name : type IDENTIFIER'''
@@ -95,12 +155,15 @@ def p_arguments(p):
                 | empty'''
     if len(p) == 4:
         p[0] = Node('arguments', [p[1], p[3]])
-    else:
+    elif p[1] is not None:
         p[0] = Node('arguments', [p[1]])
+    else:
+        p[0] = Node('arguments')
 
 def p_arguments_call(p):
     '''arguments_call : arguments_call COMMA expression
                       | expression
+                      | fqn
                       | empty'''
     if len(p) == 4:
         p[0] = Node('arguments_call', [p[1], p[3]])
@@ -111,7 +174,7 @@ def p_arguments_call(p):
 
 def p_call(p):
     '''call : fqn LPAREN arguments_call RPAREN'''
-    p[0] = Node('call', [p[1], p[3]])
+    p[0] = Node('call', [p[3], p[1]])
 
 def p_double_expression(p):
     '''double_expression : DOUBLE_LITERAL'''
@@ -130,7 +193,8 @@ def p_type(p):
     '''type : INT
             | DOUBLE
             | STRING
-            | BOOL'''
+            | BOOL
+            | VOID'''
     p[0] = Node('type', None, p[1])
 
 def p_empty(p):
@@ -140,9 +204,10 @@ def p_empty(p):
 # Error rule for syntax errors
 def p_error(p):
     print("Syntax error on line " + str(p.lineno))
-    print("Unexpected : " + str(p.value))
+    print("Unexpected: " + str(p.value))
 
 def syntax_input(lexer, content):
+    lexer.lineno = 1
     parser = yacc.yacc()
     return parser.parse(content)
 

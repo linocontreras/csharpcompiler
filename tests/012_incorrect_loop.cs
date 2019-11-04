@@ -1,4 +1,10 @@
-while true
+class Test12
 {
-    Console.WriteLine("asd");
+    void Test()
+    {
+        while true
+        {
+            Console.WriteLine("asd");
+        }
+    }
 }

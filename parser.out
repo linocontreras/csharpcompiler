@@ -1,139 +1,150 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    DIVIDE
-    MINUS
-    PLUS
-    TIMES
-    TYPE
-
 Grammar
 
 Rule 0     S' -> start
-Rule 1     start -> statement_list
-Rule 2     statement_list -> statement_list statement
-Rule 3     statement_list -> empty
-Rule 4     statement -> asignment
-Rule 5     statement -> constant
-Rule 6     statement -> block_statement
-Rule 7     statement -> call SEMICOLON
-Rule 8     constant -> CONST asignment
-Rule 9     asignment -> type fqn ASSIGNMENT expression SEMICOLON
-Rule 10    expression -> int_expression
-Rule 11    expression -> double_expression
-Rule 12    expression -> string_expression
-Rule 13    expression -> bool_expression
-Rule 14    expression -> call
-Rule 15    block_statement -> if
-Rule 16    block_statement -> while
-Rule 17    if -> IF LPAREN expression RPAREN block_or_statement else
-Rule 18    else -> ELSE block_or_statement
-Rule 19    else -> empty
-Rule 20    while -> WHILE LPAREN expression RPAREN block_or_statement
-Rule 21    block_or_statement -> statement
-Rule 22    block_or_statement -> block
-Rule 23    block -> LBRACKET statement_list RBRACKET
-Rule 24    int_expression -> INTEGER_LITERAL
-Rule 25    fqn -> IDENTIFIER
-Rule 26    fqn -> fqn DOT IDENTIFIER
-Rule 27    type_name -> type IDENTIFIER
-Rule 28    arguments -> arguments COMMA type_name
-Rule 29    arguments -> type_name
-Rule 30    arguments -> empty
-Rule 31    arguments_call -> arguments_call COMMA expression
-Rule 32    arguments_call -> expression
-Rule 33    arguments_call -> empty
-Rule 34    call -> fqn LPAREN arguments_call RPAREN
-Rule 35    double_expression -> DOUBLE_LITERAL
-Rule 36    string_expression -> STRING_LITERAL
-Rule 37    bool_expression -> TRUE
-Rule 38    bool_expression -> FALSE
-Rule 39    type -> INT
-Rule 40    type -> DOUBLE
-Rule 41    type -> STRING
-Rule 42    type -> BOOL
-Rule 43    empty -> <empty>
+Rule 1     start -> class_list
+Rule 2     class_list -> class_list class
+Rule 3     class_list -> empty
+Rule 4     class -> access CLASS IDENTIFIER LBRACKET class_body RBRACKET
+Rule 5     class_body -> class_body method
+Rule 6     class_body -> class_body class_variable
+Rule 7     class_body -> class_body constant
+Rule 8     class_body -> empty
+Rule 9     class_variable -> access type IDENTIFIER SEMICOLON
+Rule 10    class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON
+Rule 11    method -> access type IDENTIFIER LPAREN arguments RPAREN block
+Rule 12    access -> PUBLIC
+Rule 13    access -> PRIVATE
+Rule 14    access -> empty
+Rule 15    statement_list -> statement_list statement
+Rule 16    statement_list -> empty
+Rule 17    statement -> var_declaration
+Rule 18    statement -> asignment
+Rule 19    statement -> constant
+Rule 20    statement -> block_statement
+Rule 21    statement -> call SEMICOLON
+Rule 22    constant -> CONST var_declaration
+Rule 23    var_declaration -> type IDENTIFIER SEMICOLON
+Rule 24    var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON
+Rule 25    asignment -> fqn ASSIGNMENT expression SEMICOLON
+Rule 26    expression -> int_expression
+Rule 27    expression -> double_expression
+Rule 28    expression -> string_expression
+Rule 29    expression -> bool_expression
+Rule 30    expression -> call
+Rule 31    block_statement -> if
+Rule 32    block_statement -> while
+Rule 33    if -> IF LPAREN expression RPAREN block_or_statement else
+Rule 34    else -> ELSE block_or_statement
+Rule 35    else -> empty
+Rule 36    while -> WHILE LPAREN expression RPAREN block_or_statement
+Rule 37    block_or_statement -> statement
+Rule 38    block_or_statement -> block
+Rule 39    block -> LBRACKET statement_list RBRACKET
+Rule 40    int_expression -> INTEGER_LITERAL
+Rule 41    fqn -> IDENTIFIER
+Rule 42    fqn -> fqn DOT IDENTIFIER
+Rule 43    type_name -> type IDENTIFIER
+Rule 44    arguments -> arguments COMMA type_name
+Rule 45    arguments -> type_name
+Rule 46    arguments -> empty
+Rule 47    arguments_call -> arguments_call COMMA expression
+Rule 48    arguments_call -> expression
+Rule 49    arguments_call -> fqn
+Rule 50    arguments_call -> empty
+Rule 51    call -> fqn LPAREN arguments_call RPAREN
+Rule 52    double_expression -> DOUBLE_LITERAL
+Rule 53    string_expression -> STRING_LITERAL
+Rule 54    bool_expression -> TRUE
+Rule 55    bool_expression -> FALSE
+Rule 56    type -> INT
+Rule 57    type -> DOUBLE
+Rule 58    type -> STRING
+Rule 59    type -> BOOL
+Rule 60    type -> VOID
+Rule 61    empty -> <empty>
 
 Terminals, with rules where they appear
 
-ASSIGNMENT           : 9
-BOOL                 : 42
-COMMA                : 28 31
-CONST                : 8
-DIVIDE               : 
-DOT                  : 26
-DOUBLE               : 40
-DOUBLE_LITERAL       : 35
-ELSE                 : 18
-FALSE                : 38
-IDENTIFIER           : 25 26 27
-IF                   : 17
-INT                  : 39
-INTEGER_LITERAL      : 24
-LBRACKET             : 23
-LPAREN               : 17 20 34
-MINUS                : 
-PLUS                 : 
-RBRACKET             : 23
-RPAREN               : 17 20 34
-SEMICOLON            : 7 9
-STRING               : 41
-STRING_LITERAL       : 36
-TIMES                : 
-TRUE                 : 37
-TYPE                 : 
-WHILE                : 20
+ASSIGNMENT           : 10 24 25
+BOOL                 : 59
+CLASS                : 4
+COMMA                : 44 47
+CONST                : 22
+DOT                  : 42
+DOUBLE               : 57
+DOUBLE_LITERAL       : 52
+ELSE                 : 34
+FALSE                : 55
+IDENTIFIER           : 4 9 10 11 23 24 41 42 43
+IF                   : 33
+INT                  : 56
+INTEGER_LITERAL      : 40
+LBRACKET             : 4 39
+LPAREN               : 11 33 36 51
+PRIVATE              : 13
+PUBLIC               : 12
+RBRACKET             : 4 39
+RPAREN               : 11 33 36 51
+SEMICOLON            : 9 10 21 23 24 25
+STRING               : 58
+STRING_LITERAL       : 53
+TRUE                 : 54
+VOID                 : 60
+WHILE                : 36
 error                : 
 
 Nonterminals, with rules where they appear
 
-arguments            : 28
-arguments_call       : 31 34
-asignment            : 4 8
-block                : 22
-block_or_statement   : 17 18 20
-block_statement      : 6
-bool_expression      : 13
-call                 : 7 14
-constant             : 5
-double_expression    : 11
-else                 : 17
-empty                : 3 19 30 33
-expression           : 9 17 20 31 32
-fqn                  : 9 26 34
-if                   : 15
-int_expression       : 10
+access               : 4 9 10 11
+arguments            : 11 44
+arguments_call       : 47 51
+asignment            : 18
+block                : 11 38
+block_or_statement   : 33 34 36
+block_statement      : 20
+bool_expression      : 29
+call                 : 21 30
+class                : 2
+class_body           : 4 5 6 7
+class_list           : 1 2
+class_variable       : 6
+constant             : 7 19
+double_expression    : 27
+else                 : 33
+empty                : 3 8 14 16 35 46 50
+expression           : 10 24 25 33 36 47 48
+fqn                  : 25 42 49 51
+if                   : 31
+int_expression       : 26
+method               : 5
 start                : 0
-statement            : 2 21
-statement_list       : 1 2 23
-string_expression    : 12
-type                 : 9 27
-type_name            : 28 29
-while                : 16
+statement            : 15 37
+statement_list       : 15 39
+string_expression    : 28
+type                 : 9 10 11 23 24 43
+type_name            : 44 45
+var_declaration      : 17 22
+while                : 32
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . start
-    (1) start -> . statement_list
-    (2) statement_list -> . statement_list statement
-    (3) statement_list -> . empty
-    (43) empty -> .
+    (1) start -> . class_list
+    (2) class_list -> . class_list class
+    (3) class_list -> . empty
+    (61) empty -> .
 
-    CONST           reduce using rule 43 (empty -> .)
-    INT             reduce using rule 43 (empty -> .)
-    DOUBLE          reduce using rule 43 (empty -> .)
-    STRING          reduce using rule 43 (empty -> .)
-    BOOL            reduce using rule 43 (empty -> .)
-    IF              reduce using rule 43 (empty -> .)
-    WHILE           reduce using rule 43 (empty -> .)
-    IDENTIFIER      reduce using rule 43 (empty -> .)
-    $end            reduce using rule 43 (empty -> .)
+    PUBLIC          reduce using rule 61 (empty -> .)
+    PRIVATE         reduce using rule 61 (empty -> .)
+    CLASS           reduce using rule 61 (empty -> .)
+    $end            reduce using rule 61 (empty -> .)
 
     start                          shift and go to state 1
-    statement_list                 shift and go to state 2
+    class_list                     shift and go to state 2
     empty                          shift and go to state 3
 
 state 1
@@ -144,998 +155,1560 @@ state 1
 
 state 2
 
-    (1) start -> statement_list .
-    (2) statement_list -> statement_list . statement
-    (4) statement -> . asignment
-    (5) statement -> . constant
-    (6) statement -> . block_statement
-    (7) statement -> . call SEMICOLON
-    (9) asignment -> . type fqn ASSIGNMENT expression SEMICOLON
-    (8) constant -> . CONST asignment
-    (15) block_statement -> . if
-    (16) block_statement -> . while
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (39) type -> . INT
-    (40) type -> . DOUBLE
-    (41) type -> . STRING
-    (42) type -> . BOOL
-    (17) if -> . IF LPAREN expression RPAREN block_or_statement else
-    (20) while -> . WHILE LPAREN expression RPAREN block_or_statement
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (1) start -> class_list .
+    (2) class_list -> class_list . class
+    (4) class -> . access CLASS IDENTIFIER LBRACKET class_body RBRACKET
+    (12) access -> . PUBLIC
+    (13) access -> . PRIVATE
+    (14) access -> . empty
+    (61) empty -> .
 
-    $end            reduce using rule 1 (start -> statement_list .)
-    CONST           shift and go to state 11
-    INT             shift and go to state 14
-    DOUBLE          shift and go to state 15
-    STRING          shift and go to state 16
-    BOOL            shift and go to state 17
-    IF              shift and go to state 18
-    WHILE           shift and go to state 19
-    IDENTIFIER      shift and go to state 20
+    $end            reduce using rule 1 (start -> class_list .)
+    PUBLIC          shift and go to state 6
+    PRIVATE         shift and go to state 7
+    CLASS           reduce using rule 61 (empty -> .)
 
-    statement                      shift and go to state 4
-    asignment                      shift and go to state 5
-    constant                       shift and go to state 6
-    block_statement                shift and go to state 7
-    call                           shift and go to state 8
-    type                           shift and go to state 9
-    fqn                            shift and go to state 10
-    if                             shift and go to state 12
-    while                          shift and go to state 13
+    class                          shift and go to state 4
+    access                         shift and go to state 5
+    empty                          shift and go to state 8
 
 state 3
 
-    (3) statement_list -> empty .
+    (3) class_list -> empty .
 
-    CONST           reduce using rule 3 (statement_list -> empty .)
-    INT             reduce using rule 3 (statement_list -> empty .)
-    DOUBLE          reduce using rule 3 (statement_list -> empty .)
-    STRING          reduce using rule 3 (statement_list -> empty .)
-    BOOL            reduce using rule 3 (statement_list -> empty .)
-    IF              reduce using rule 3 (statement_list -> empty .)
-    WHILE           reduce using rule 3 (statement_list -> empty .)
-    IDENTIFIER      reduce using rule 3 (statement_list -> empty .)
-    $end            reduce using rule 3 (statement_list -> empty .)
-    RBRACKET        reduce using rule 3 (statement_list -> empty .)
+    PUBLIC          reduce using rule 3 (class_list -> empty .)
+    PRIVATE         reduce using rule 3 (class_list -> empty .)
+    CLASS           reduce using rule 3 (class_list -> empty .)
+    $end            reduce using rule 3 (class_list -> empty .)
 
 
 state 4
 
-    (2) statement_list -> statement_list statement .
+    (2) class_list -> class_list class .
 
-    CONST           reduce using rule 2 (statement_list -> statement_list statement .)
-    INT             reduce using rule 2 (statement_list -> statement_list statement .)
-    DOUBLE          reduce using rule 2 (statement_list -> statement_list statement .)
-    STRING          reduce using rule 2 (statement_list -> statement_list statement .)
-    BOOL            reduce using rule 2 (statement_list -> statement_list statement .)
-    IF              reduce using rule 2 (statement_list -> statement_list statement .)
-    WHILE           reduce using rule 2 (statement_list -> statement_list statement .)
-    IDENTIFIER      reduce using rule 2 (statement_list -> statement_list statement .)
-    $end            reduce using rule 2 (statement_list -> statement_list statement .)
-    RBRACKET        reduce using rule 2 (statement_list -> statement_list statement .)
+    PUBLIC          reduce using rule 2 (class_list -> class_list class .)
+    PRIVATE         reduce using rule 2 (class_list -> class_list class .)
+    CLASS           reduce using rule 2 (class_list -> class_list class .)
+    $end            reduce using rule 2 (class_list -> class_list class .)
 
 
 state 5
 
-    (4) statement -> asignment .
+    (4) class -> access . CLASS IDENTIFIER LBRACKET class_body RBRACKET
 
-    CONST           reduce using rule 4 (statement -> asignment .)
-    INT             reduce using rule 4 (statement -> asignment .)
-    DOUBLE          reduce using rule 4 (statement -> asignment .)
-    STRING          reduce using rule 4 (statement -> asignment .)
-    BOOL            reduce using rule 4 (statement -> asignment .)
-    IF              reduce using rule 4 (statement -> asignment .)
-    WHILE           reduce using rule 4 (statement -> asignment .)
-    IDENTIFIER      reduce using rule 4 (statement -> asignment .)
-    $end            reduce using rule 4 (statement -> asignment .)
-    ELSE            reduce using rule 4 (statement -> asignment .)
-    RBRACKET        reduce using rule 4 (statement -> asignment .)
+    CLASS           shift and go to state 9
 
 
 state 6
 
-    (5) statement -> constant .
+    (12) access -> PUBLIC .
 
-    CONST           reduce using rule 5 (statement -> constant .)
-    INT             reduce using rule 5 (statement -> constant .)
-    DOUBLE          reduce using rule 5 (statement -> constant .)
-    STRING          reduce using rule 5 (statement -> constant .)
-    BOOL            reduce using rule 5 (statement -> constant .)
-    IF              reduce using rule 5 (statement -> constant .)
-    WHILE           reduce using rule 5 (statement -> constant .)
-    IDENTIFIER      reduce using rule 5 (statement -> constant .)
-    $end            reduce using rule 5 (statement -> constant .)
-    ELSE            reduce using rule 5 (statement -> constant .)
-    RBRACKET        reduce using rule 5 (statement -> constant .)
+    CLASS           reduce using rule 12 (access -> PUBLIC .)
+    INT             reduce using rule 12 (access -> PUBLIC .)
+    DOUBLE          reduce using rule 12 (access -> PUBLIC .)
+    STRING          reduce using rule 12 (access -> PUBLIC .)
+    BOOL            reduce using rule 12 (access -> PUBLIC .)
+    VOID            reduce using rule 12 (access -> PUBLIC .)
 
 
 state 7
 
-    (6) statement -> block_statement .
+    (13) access -> PRIVATE .
 
-    CONST           reduce using rule 6 (statement -> block_statement .)
-    INT             reduce using rule 6 (statement -> block_statement .)
-    DOUBLE          reduce using rule 6 (statement -> block_statement .)
-    STRING          reduce using rule 6 (statement -> block_statement .)
-    BOOL            reduce using rule 6 (statement -> block_statement .)
-    IF              reduce using rule 6 (statement -> block_statement .)
-    WHILE           reduce using rule 6 (statement -> block_statement .)
-    IDENTIFIER      reduce using rule 6 (statement -> block_statement .)
-    $end            reduce using rule 6 (statement -> block_statement .)
-    ELSE            reduce using rule 6 (statement -> block_statement .)
-    RBRACKET        reduce using rule 6 (statement -> block_statement .)
+    CLASS           reduce using rule 13 (access -> PRIVATE .)
+    INT             reduce using rule 13 (access -> PRIVATE .)
+    DOUBLE          reduce using rule 13 (access -> PRIVATE .)
+    STRING          reduce using rule 13 (access -> PRIVATE .)
+    BOOL            reduce using rule 13 (access -> PRIVATE .)
+    VOID            reduce using rule 13 (access -> PRIVATE .)
 
 
 state 8
 
-    (7) statement -> call . SEMICOLON
+    (14) access -> empty .
 
-    SEMICOLON       shift and go to state 21
+    CLASS           reduce using rule 14 (access -> empty .)
+    INT             reduce using rule 14 (access -> empty .)
+    DOUBLE          reduce using rule 14 (access -> empty .)
+    STRING          reduce using rule 14 (access -> empty .)
+    BOOL            reduce using rule 14 (access -> empty .)
+    VOID            reduce using rule 14 (access -> empty .)
 
 
 state 9
 
-    (9) asignment -> type . fqn ASSIGNMENT expression SEMICOLON
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (4) class -> access CLASS . IDENTIFIER LBRACKET class_body RBRACKET
 
-    IDENTIFIER      shift and go to state 20
+    IDENTIFIER      shift and go to state 10
 
-    fqn                            shift and go to state 22
 
 state 10
 
-    (34) call -> fqn . LPAREN arguments_call RPAREN
-    (26) fqn -> fqn . DOT IDENTIFIER
+    (4) class -> access CLASS IDENTIFIER . LBRACKET class_body RBRACKET
 
-    LPAREN          shift and go to state 23
-    DOT             shift and go to state 24
+    LBRACKET        shift and go to state 11
 
 
 state 11
 
-    (8) constant -> CONST . asignment
-    (9) asignment -> . type fqn ASSIGNMENT expression SEMICOLON
-    (39) type -> . INT
-    (40) type -> . DOUBLE
-    (41) type -> . STRING
-    (42) type -> . BOOL
+    (4) class -> access CLASS IDENTIFIER LBRACKET . class_body RBRACKET
+    (5) class_body -> . class_body method
+    (6) class_body -> . class_body class_variable
+    (7) class_body -> . class_body constant
+    (8) class_body -> . empty
+    (61) empty -> .
 
-    INT             shift and go to state 14
-    DOUBLE          shift and go to state 15
-    STRING          shift and go to state 16
-    BOOL            shift and go to state 17
+    RBRACKET        reduce using rule 61 (empty -> .)
+    CONST           reduce using rule 61 (empty -> .)
+    PUBLIC          reduce using rule 61 (empty -> .)
+    PRIVATE         reduce using rule 61 (empty -> .)
+    INT             reduce using rule 61 (empty -> .)
+    DOUBLE          reduce using rule 61 (empty -> .)
+    STRING          reduce using rule 61 (empty -> .)
+    BOOL            reduce using rule 61 (empty -> .)
+    VOID            reduce using rule 61 (empty -> .)
 
-    asignment                      shift and go to state 25
-    type                           shift and go to state 9
+    class_body                     shift and go to state 12
+    empty                          shift and go to state 13
 
 state 12
 
-    (15) block_statement -> if .
+    (4) class -> access CLASS IDENTIFIER LBRACKET class_body . RBRACKET
+    (5) class_body -> class_body . method
+    (6) class_body -> class_body . class_variable
+    (7) class_body -> class_body . constant
+    (11) method -> . access type IDENTIFIER LPAREN arguments RPAREN block
+    (9) class_variable -> . access type IDENTIFIER SEMICOLON
+    (10) class_variable -> . access type IDENTIFIER ASSIGNMENT expression SEMICOLON
+    (22) constant -> . CONST var_declaration
+    (12) access -> . PUBLIC
+    (13) access -> . PRIVATE
+    (14) access -> . empty
+    (61) empty -> .
 
-    CONST           reduce using rule 15 (block_statement -> if .)
-    INT             reduce using rule 15 (block_statement -> if .)
-    DOUBLE          reduce using rule 15 (block_statement -> if .)
-    STRING          reduce using rule 15 (block_statement -> if .)
-    BOOL            reduce using rule 15 (block_statement -> if .)
-    IF              reduce using rule 15 (block_statement -> if .)
-    WHILE           reduce using rule 15 (block_statement -> if .)
-    IDENTIFIER      reduce using rule 15 (block_statement -> if .)
-    $end            reduce using rule 15 (block_statement -> if .)
-    ELSE            reduce using rule 15 (block_statement -> if .)
-    RBRACKET        reduce using rule 15 (block_statement -> if .)
+    RBRACKET        shift and go to state 15
+    CONST           shift and go to state 19
+    PUBLIC          shift and go to state 6
+    PRIVATE         shift and go to state 7
+    INT             reduce using rule 61 (empty -> .)
+    DOUBLE          reduce using rule 61 (empty -> .)
+    STRING          reduce using rule 61 (empty -> .)
+    BOOL            reduce using rule 61 (empty -> .)
+    VOID            reduce using rule 61 (empty -> .)
 
+    access                         shift and go to state 14
+    method                         shift and go to state 16
+    class_variable                 shift and go to state 17
+    constant                       shift and go to state 18
+    empty                          shift and go to state 8
 
 state 13
 
-    (16) block_statement -> while .
+    (8) class_body -> empty .
 
-    CONST           reduce using rule 16 (block_statement -> while .)
-    INT             reduce using rule 16 (block_statement -> while .)
-    DOUBLE          reduce using rule 16 (block_statement -> while .)
-    STRING          reduce using rule 16 (block_statement -> while .)
-    BOOL            reduce using rule 16 (block_statement -> while .)
-    IF              reduce using rule 16 (block_statement -> while .)
-    WHILE           reduce using rule 16 (block_statement -> while .)
-    IDENTIFIER      reduce using rule 16 (block_statement -> while .)
-    $end            reduce using rule 16 (block_statement -> while .)
-    ELSE            reduce using rule 16 (block_statement -> while .)
-    RBRACKET        reduce using rule 16 (block_statement -> while .)
+    RBRACKET        reduce using rule 8 (class_body -> empty .)
+    CONST           reduce using rule 8 (class_body -> empty .)
+    PUBLIC          reduce using rule 8 (class_body -> empty .)
+    PRIVATE         reduce using rule 8 (class_body -> empty .)
+    INT             reduce using rule 8 (class_body -> empty .)
+    DOUBLE          reduce using rule 8 (class_body -> empty .)
+    STRING          reduce using rule 8 (class_body -> empty .)
+    BOOL            reduce using rule 8 (class_body -> empty .)
+    VOID            reduce using rule 8 (class_body -> empty .)
 
 
 state 14
 
-    (39) type -> INT .
+    (11) method -> access . type IDENTIFIER LPAREN arguments RPAREN block
+    (9) class_variable -> access . type IDENTIFIER SEMICOLON
+    (10) class_variable -> access . type IDENTIFIER ASSIGNMENT expression SEMICOLON
+    (56) type -> . INT
+    (57) type -> . DOUBLE
+    (58) type -> . STRING
+    (59) type -> . BOOL
+    (60) type -> . VOID
 
-    IDENTIFIER      reduce using rule 39 (type -> INT .)
+    INT             shift and go to state 21
+    DOUBLE          shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
 
+    type                           shift and go to state 20
 
 state 15
 
-    (40) type -> DOUBLE .
+    (4) class -> access CLASS IDENTIFIER LBRACKET class_body RBRACKET .
 
-    IDENTIFIER      reduce using rule 40 (type -> DOUBLE .)
+    PUBLIC          reduce using rule 4 (class -> access CLASS IDENTIFIER LBRACKET class_body RBRACKET .)
+    PRIVATE         reduce using rule 4 (class -> access CLASS IDENTIFIER LBRACKET class_body RBRACKET .)
+    CLASS           reduce using rule 4 (class -> access CLASS IDENTIFIER LBRACKET class_body RBRACKET .)
+    $end            reduce using rule 4 (class -> access CLASS IDENTIFIER LBRACKET class_body RBRACKET .)
 
 
 state 16
 
-    (41) type -> STRING .
+    (5) class_body -> class_body method .
 
-    IDENTIFIER      reduce using rule 41 (type -> STRING .)
+    RBRACKET        reduce using rule 5 (class_body -> class_body method .)
+    CONST           reduce using rule 5 (class_body -> class_body method .)
+    PUBLIC          reduce using rule 5 (class_body -> class_body method .)
+    PRIVATE         reduce using rule 5 (class_body -> class_body method .)
+    INT             reduce using rule 5 (class_body -> class_body method .)
+    DOUBLE          reduce using rule 5 (class_body -> class_body method .)
+    STRING          reduce using rule 5 (class_body -> class_body method .)
+    BOOL            reduce using rule 5 (class_body -> class_body method .)
+    VOID            reduce using rule 5 (class_body -> class_body method .)
 
 
 state 17
 
-    (42) type -> BOOL .
+    (6) class_body -> class_body class_variable .
 
-    IDENTIFIER      reduce using rule 42 (type -> BOOL .)
+    RBRACKET        reduce using rule 6 (class_body -> class_body class_variable .)
+    CONST           reduce using rule 6 (class_body -> class_body class_variable .)
+    PUBLIC          reduce using rule 6 (class_body -> class_body class_variable .)
+    PRIVATE         reduce using rule 6 (class_body -> class_body class_variable .)
+    INT             reduce using rule 6 (class_body -> class_body class_variable .)
+    DOUBLE          reduce using rule 6 (class_body -> class_body class_variable .)
+    STRING          reduce using rule 6 (class_body -> class_body class_variable .)
+    BOOL            reduce using rule 6 (class_body -> class_body class_variable .)
+    VOID            reduce using rule 6 (class_body -> class_body class_variable .)
 
 
 state 18
 
-    (17) if -> IF . LPAREN expression RPAREN block_or_statement else
+    (7) class_body -> class_body constant .
 
-    LPAREN          shift and go to state 26
+    RBRACKET        reduce using rule 7 (class_body -> class_body constant .)
+    CONST           reduce using rule 7 (class_body -> class_body constant .)
+    PUBLIC          reduce using rule 7 (class_body -> class_body constant .)
+    PRIVATE         reduce using rule 7 (class_body -> class_body constant .)
+    INT             reduce using rule 7 (class_body -> class_body constant .)
+    DOUBLE          reduce using rule 7 (class_body -> class_body constant .)
+    STRING          reduce using rule 7 (class_body -> class_body constant .)
+    BOOL            reduce using rule 7 (class_body -> class_body constant .)
+    VOID            reduce using rule 7 (class_body -> class_body constant .)
 
 
 state 19
 
-    (20) while -> WHILE . LPAREN expression RPAREN block_or_statement
+    (22) constant -> CONST . var_declaration
+    (23) var_declaration -> . type IDENTIFIER SEMICOLON
+    (24) var_declaration -> . type IDENTIFIER ASSIGNMENT expression SEMICOLON
+    (56) type -> . INT
+    (57) type -> . DOUBLE
+    (58) type -> . STRING
+    (59) type -> . BOOL
+    (60) type -> . VOID
 
-    LPAREN          shift and go to state 27
+    INT             shift and go to state 21
+    DOUBLE          shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
 
+    var_declaration                shift and go to state 26
+    type                           shift and go to state 27
 
 state 20
 
-    (25) fqn -> IDENTIFIER .
+    (11) method -> access type . IDENTIFIER LPAREN arguments RPAREN block
+    (9) class_variable -> access type . IDENTIFIER SEMICOLON
+    (10) class_variable -> access type . IDENTIFIER ASSIGNMENT expression SEMICOLON
 
-    LPAREN          reduce using rule 25 (fqn -> IDENTIFIER .)
-    DOT             reduce using rule 25 (fqn -> IDENTIFIER .)
-    ASSIGNMENT      reduce using rule 25 (fqn -> IDENTIFIER .)
+    IDENTIFIER      shift and go to state 28
 
 
 state 21
 
-    (7) statement -> call SEMICOLON .
+    (56) type -> INT .
 
-    CONST           reduce using rule 7 (statement -> call SEMICOLON .)
-    INT             reduce using rule 7 (statement -> call SEMICOLON .)
-    DOUBLE          reduce using rule 7 (statement -> call SEMICOLON .)
-    STRING          reduce using rule 7 (statement -> call SEMICOLON .)
-    BOOL            reduce using rule 7 (statement -> call SEMICOLON .)
-    IF              reduce using rule 7 (statement -> call SEMICOLON .)
-    WHILE           reduce using rule 7 (statement -> call SEMICOLON .)
-    IDENTIFIER      reduce using rule 7 (statement -> call SEMICOLON .)
-    $end            reduce using rule 7 (statement -> call SEMICOLON .)
-    ELSE            reduce using rule 7 (statement -> call SEMICOLON .)
-    RBRACKET        reduce using rule 7 (statement -> call SEMICOLON .)
+    IDENTIFIER      reduce using rule 56 (type -> INT .)
 
 
 state 22
 
-    (9) asignment -> type fqn . ASSIGNMENT expression SEMICOLON
-    (26) fqn -> fqn . DOT IDENTIFIER
+    (57) type -> DOUBLE .
 
-    ASSIGNMENT      shift and go to state 28
-    DOT             shift and go to state 24
+    IDENTIFIER      reduce using rule 57 (type -> DOUBLE .)
 
 
 state 23
 
-    (34) call -> fqn LPAREN . arguments_call RPAREN
-    (31) arguments_call -> . arguments_call COMMA expression
-    (32) arguments_call -> . expression
-    (33) arguments_call -> . empty
-    (10) expression -> . int_expression
-    (11) expression -> . double_expression
-    (12) expression -> . string_expression
-    (13) expression -> . bool_expression
-    (14) expression -> . call
-    (43) empty -> .
-    (24) int_expression -> . INTEGER_LITERAL
-    (35) double_expression -> . DOUBLE_LITERAL
-    (36) string_expression -> . STRING_LITERAL
-    (37) bool_expression -> . TRUE
-    (38) bool_expression -> . FALSE
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (58) type -> STRING .
 
-    RPAREN          reduce using rule 43 (empty -> .)
-    COMMA           reduce using rule 43 (empty -> .)
-    INTEGER_LITERAL shift and go to state 37
-    DOUBLE_LITERAL  shift and go to state 38
-    STRING_LITERAL  shift and go to state 39
-    TRUE            shift and go to state 40
-    FALSE           shift and go to state 41
-    IDENTIFIER      shift and go to state 20
+    IDENTIFIER      reduce using rule 58 (type -> STRING .)
 
-    fqn                            shift and go to state 10
-    arguments_call                 shift and go to state 29
-    expression                     shift and go to state 30
-    empty                          shift and go to state 31
-    int_expression                 shift and go to state 32
-    double_expression              shift and go to state 33
-    string_expression              shift and go to state 34
-    bool_expression                shift and go to state 35
-    call                           shift and go to state 36
 
 state 24
 
-    (26) fqn -> fqn DOT . IDENTIFIER
+    (59) type -> BOOL .
 
-    IDENTIFIER      shift and go to state 42
+    IDENTIFIER      reduce using rule 59 (type -> BOOL .)
 
 
 state 25
 
-    (8) constant -> CONST asignment .
+    (60) type -> VOID .
 
-    CONST           reduce using rule 8 (constant -> CONST asignment .)
-    INT             reduce using rule 8 (constant -> CONST asignment .)
-    DOUBLE          reduce using rule 8 (constant -> CONST asignment .)
-    STRING          reduce using rule 8 (constant -> CONST asignment .)
-    BOOL            reduce using rule 8 (constant -> CONST asignment .)
-    IF              reduce using rule 8 (constant -> CONST asignment .)
-    WHILE           reduce using rule 8 (constant -> CONST asignment .)
-    IDENTIFIER      reduce using rule 8 (constant -> CONST asignment .)
-    $end            reduce using rule 8 (constant -> CONST asignment .)
-    ELSE            reduce using rule 8 (constant -> CONST asignment .)
-    RBRACKET        reduce using rule 8 (constant -> CONST asignment .)
+    IDENTIFIER      reduce using rule 60 (type -> VOID .)
 
 
 state 26
 
-    (17) if -> IF LPAREN . expression RPAREN block_or_statement else
-    (10) expression -> . int_expression
-    (11) expression -> . double_expression
-    (12) expression -> . string_expression
-    (13) expression -> . bool_expression
-    (14) expression -> . call
-    (24) int_expression -> . INTEGER_LITERAL
-    (35) double_expression -> . DOUBLE_LITERAL
-    (36) string_expression -> . STRING_LITERAL
-    (37) bool_expression -> . TRUE
-    (38) bool_expression -> . FALSE
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (22) constant -> CONST var_declaration .
 
-    INTEGER_LITERAL shift and go to state 37
-    DOUBLE_LITERAL  shift and go to state 38
-    STRING_LITERAL  shift and go to state 39
-    TRUE            shift and go to state 40
-    FALSE           shift and go to state 41
-    IDENTIFIER      shift and go to state 20
+    RBRACKET        reduce using rule 22 (constant -> CONST var_declaration .)
+    CONST           reduce using rule 22 (constant -> CONST var_declaration .)
+    PUBLIC          reduce using rule 22 (constant -> CONST var_declaration .)
+    PRIVATE         reduce using rule 22 (constant -> CONST var_declaration .)
+    INT             reduce using rule 22 (constant -> CONST var_declaration .)
+    DOUBLE          reduce using rule 22 (constant -> CONST var_declaration .)
+    STRING          reduce using rule 22 (constant -> CONST var_declaration .)
+    BOOL            reduce using rule 22 (constant -> CONST var_declaration .)
+    VOID            reduce using rule 22 (constant -> CONST var_declaration .)
+    IDENTIFIER      reduce using rule 22 (constant -> CONST var_declaration .)
+    IF              reduce using rule 22 (constant -> CONST var_declaration .)
+    WHILE           reduce using rule 22 (constant -> CONST var_declaration .)
+    ELSE            reduce using rule 22 (constant -> CONST var_declaration .)
 
-    expression                     shift and go to state 43
-    int_expression                 shift and go to state 32
-    double_expression              shift and go to state 33
-    string_expression              shift and go to state 34
-    bool_expression                shift and go to state 35
-    call                           shift and go to state 36
-    fqn                            shift and go to state 10
 
 state 27
 
-    (20) while -> WHILE LPAREN . expression RPAREN block_or_statement
-    (10) expression -> . int_expression
-    (11) expression -> . double_expression
-    (12) expression -> . string_expression
-    (13) expression -> . bool_expression
-    (14) expression -> . call
-    (24) int_expression -> . INTEGER_LITERAL
-    (35) double_expression -> . DOUBLE_LITERAL
-    (36) string_expression -> . STRING_LITERAL
-    (37) bool_expression -> . TRUE
-    (38) bool_expression -> . FALSE
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (23) var_declaration -> type . IDENTIFIER SEMICOLON
+    (24) var_declaration -> type . IDENTIFIER ASSIGNMENT expression SEMICOLON
 
-    INTEGER_LITERAL shift and go to state 37
-    DOUBLE_LITERAL  shift and go to state 38
-    STRING_LITERAL  shift and go to state 39
-    TRUE            shift and go to state 40
-    FALSE           shift and go to state 41
-    IDENTIFIER      shift and go to state 20
+    IDENTIFIER      shift and go to state 29
 
-    expression                     shift and go to state 44
-    int_expression                 shift and go to state 32
-    double_expression              shift and go to state 33
-    string_expression              shift and go to state 34
-    bool_expression                shift and go to state 35
-    call                           shift and go to state 36
-    fqn                            shift and go to state 10
 
 state 28
 
-    (9) asignment -> type fqn ASSIGNMENT . expression SEMICOLON
-    (10) expression -> . int_expression
-    (11) expression -> . double_expression
-    (12) expression -> . string_expression
-    (13) expression -> . bool_expression
-    (14) expression -> . call
-    (24) int_expression -> . INTEGER_LITERAL
-    (35) double_expression -> . DOUBLE_LITERAL
-    (36) string_expression -> . STRING_LITERAL
-    (37) bool_expression -> . TRUE
-    (38) bool_expression -> . FALSE
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (11) method -> access type IDENTIFIER . LPAREN arguments RPAREN block
+    (9) class_variable -> access type IDENTIFIER . SEMICOLON
+    (10) class_variable -> access type IDENTIFIER . ASSIGNMENT expression SEMICOLON
 
-    INTEGER_LITERAL shift and go to state 37
-    DOUBLE_LITERAL  shift and go to state 38
-    STRING_LITERAL  shift and go to state 39
-    TRUE            shift and go to state 40
-    FALSE           shift and go to state 41
-    IDENTIFIER      shift and go to state 20
+    LPAREN          shift and go to state 30
+    SEMICOLON       shift and go to state 31
+    ASSIGNMENT      shift and go to state 32
 
-    fqn                            shift and go to state 10
-    expression                     shift and go to state 45
-    int_expression                 shift and go to state 32
-    double_expression              shift and go to state 33
-    string_expression              shift and go to state 34
-    bool_expression                shift and go to state 35
-    call                           shift and go to state 36
 
 state 29
 
-    (34) call -> fqn LPAREN arguments_call . RPAREN
-    (31) arguments_call -> arguments_call . COMMA expression
+    (23) var_declaration -> type IDENTIFIER . SEMICOLON
+    (24) var_declaration -> type IDENTIFIER . ASSIGNMENT expression SEMICOLON
 
-    RPAREN          shift and go to state 46
-    COMMA           shift and go to state 47
+    SEMICOLON       shift and go to state 33
+    ASSIGNMENT      shift and go to state 34
 
 
 state 30
 
-    (32) arguments_call -> expression .
+    (11) method -> access type IDENTIFIER LPAREN . arguments RPAREN block
+    (44) arguments -> . arguments COMMA type_name
+    (45) arguments -> . type_name
+    (46) arguments -> . empty
+    (43) type_name -> . type IDENTIFIER
+    (61) empty -> .
+    (56) type -> . INT
+    (57) type -> . DOUBLE
+    (58) type -> . STRING
+    (59) type -> . BOOL
+    (60) type -> . VOID
 
-    RPAREN          reduce using rule 32 (arguments_call -> expression .)
-    COMMA           reduce using rule 32 (arguments_call -> expression .)
+    RPAREN          reduce using rule 61 (empty -> .)
+    COMMA           reduce using rule 61 (empty -> .)
+    INT             shift and go to state 21
+    DOUBLE          shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
 
+    type                           shift and go to state 35
+    arguments                      shift and go to state 36
+    type_name                      shift and go to state 37
+    empty                          shift and go to state 38
 
 state 31
 
-    (33) arguments_call -> empty .
+    (9) class_variable -> access type IDENTIFIER SEMICOLON .
 
-    RPAREN          reduce using rule 33 (arguments_call -> empty .)
-    COMMA           reduce using rule 33 (arguments_call -> empty .)
+    RBRACKET        reduce using rule 9 (class_variable -> access type IDENTIFIER SEMICOLON .)
+    CONST           reduce using rule 9 (class_variable -> access type IDENTIFIER SEMICOLON .)
+    PUBLIC          reduce using rule 9 (class_variable -> access type IDENTIFIER SEMICOLON .)
+    PRIVATE         reduce using rule 9 (class_variable -> access type IDENTIFIER SEMICOLON .)
+    INT             reduce using rule 9 (class_variable -> access type IDENTIFIER SEMICOLON .)
+    DOUBLE          reduce using rule 9 (class_variable -> access type IDENTIFIER SEMICOLON .)
+    STRING          reduce using rule 9 (class_variable -> access type IDENTIFIER SEMICOLON .)
+    BOOL            reduce using rule 9 (class_variable -> access type IDENTIFIER SEMICOLON .)
+    VOID            reduce using rule 9 (class_variable -> access type IDENTIFIER SEMICOLON .)
 
 
 state 32
 
-    (10) expression -> int_expression .
+    (10) class_variable -> access type IDENTIFIER ASSIGNMENT . expression SEMICOLON
+    (26) expression -> . int_expression
+    (27) expression -> . double_expression
+    (28) expression -> . string_expression
+    (29) expression -> . bool_expression
+    (30) expression -> . call
+    (40) int_expression -> . INTEGER_LITERAL
+    (52) double_expression -> . DOUBLE_LITERAL
+    (53) string_expression -> . STRING_LITERAL
+    (54) bool_expression -> . TRUE
+    (55) bool_expression -> . FALSE
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
 
-    RPAREN          reduce using rule 10 (expression -> int_expression .)
-    COMMA           reduce using rule 10 (expression -> int_expression .)
-    SEMICOLON       reduce using rule 10 (expression -> int_expression .)
+    INTEGER_LITERAL shift and go to state 46
+    DOUBLE_LITERAL  shift and go to state 47
+    STRING_LITERAL  shift and go to state 48
+    TRUE            shift and go to state 49
+    FALSE           shift and go to state 50
+    IDENTIFIER      shift and go to state 39
 
+    expression                     shift and go to state 40
+    int_expression                 shift and go to state 41
+    double_expression              shift and go to state 42
+    string_expression              shift and go to state 43
+    bool_expression                shift and go to state 44
+    call                           shift and go to state 45
+    fqn                            shift and go to state 51
 
 state 33
 
-    (11) expression -> double_expression .
+    (23) var_declaration -> type IDENTIFIER SEMICOLON .
 
-    RPAREN          reduce using rule 11 (expression -> double_expression .)
-    COMMA           reduce using rule 11 (expression -> double_expression .)
-    SEMICOLON       reduce using rule 11 (expression -> double_expression .)
+    RBRACKET        reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    CONST           reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    PUBLIC          reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    PRIVATE         reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    INT             reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    DOUBLE          reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    STRING          reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    BOOL            reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    VOID            reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    IDENTIFIER      reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    IF              reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    WHILE           reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
+    ELSE            reduce using rule 23 (var_declaration -> type IDENTIFIER SEMICOLON .)
 
 
 state 34
 
-    (12) expression -> string_expression .
+    (24) var_declaration -> type IDENTIFIER ASSIGNMENT . expression SEMICOLON
+    (26) expression -> . int_expression
+    (27) expression -> . double_expression
+    (28) expression -> . string_expression
+    (29) expression -> . bool_expression
+    (30) expression -> . call
+    (40) int_expression -> . INTEGER_LITERAL
+    (52) double_expression -> . DOUBLE_LITERAL
+    (53) string_expression -> . STRING_LITERAL
+    (54) bool_expression -> . TRUE
+    (55) bool_expression -> . FALSE
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
 
-    RPAREN          reduce using rule 12 (expression -> string_expression .)
-    COMMA           reduce using rule 12 (expression -> string_expression .)
-    SEMICOLON       reduce using rule 12 (expression -> string_expression .)
+    INTEGER_LITERAL shift and go to state 46
+    DOUBLE_LITERAL  shift and go to state 47
+    STRING_LITERAL  shift and go to state 48
+    TRUE            shift and go to state 49
+    FALSE           shift and go to state 50
+    IDENTIFIER      shift and go to state 39
 
+    expression                     shift and go to state 52
+    int_expression                 shift and go to state 41
+    double_expression              shift and go to state 42
+    string_expression              shift and go to state 43
+    bool_expression                shift and go to state 44
+    call                           shift and go to state 45
+    fqn                            shift and go to state 51
 
 state 35
 
-    (13) expression -> bool_expression .
+    (43) type_name -> type . IDENTIFIER
 
-    RPAREN          reduce using rule 13 (expression -> bool_expression .)
-    COMMA           reduce using rule 13 (expression -> bool_expression .)
-    SEMICOLON       reduce using rule 13 (expression -> bool_expression .)
+    IDENTIFIER      shift and go to state 53
 
 
 state 36
 
-    (14) expression -> call .
+    (11) method -> access type IDENTIFIER LPAREN arguments . RPAREN block
+    (44) arguments -> arguments . COMMA type_name
 
-    RPAREN          reduce using rule 14 (expression -> call .)
-    COMMA           reduce using rule 14 (expression -> call .)
-    SEMICOLON       reduce using rule 14 (expression -> call .)
+    RPAREN          shift and go to state 54
+    COMMA           shift and go to state 55
 
 
 state 37
 
-    (24) int_expression -> INTEGER_LITERAL .
+    (45) arguments -> type_name .
 
-    RPAREN          reduce using rule 24 (int_expression -> INTEGER_LITERAL .)
-    COMMA           reduce using rule 24 (int_expression -> INTEGER_LITERAL .)
-    SEMICOLON       reduce using rule 24 (int_expression -> INTEGER_LITERAL .)
+    RPAREN          reduce using rule 45 (arguments -> type_name .)
+    COMMA           reduce using rule 45 (arguments -> type_name .)
 
 
 state 38
 
-    (35) double_expression -> DOUBLE_LITERAL .
+    (46) arguments -> empty .
 
-    RPAREN          reduce using rule 35 (double_expression -> DOUBLE_LITERAL .)
-    COMMA           reduce using rule 35 (double_expression -> DOUBLE_LITERAL .)
-    SEMICOLON       reduce using rule 35 (double_expression -> DOUBLE_LITERAL .)
+    RPAREN          reduce using rule 46 (arguments -> empty .)
+    COMMA           reduce using rule 46 (arguments -> empty .)
 
 
 state 39
 
-    (36) string_expression -> STRING_LITERAL .
+    (41) fqn -> IDENTIFIER .
 
-    RPAREN          reduce using rule 36 (string_expression -> STRING_LITERAL .)
-    COMMA           reduce using rule 36 (string_expression -> STRING_LITERAL .)
-    SEMICOLON       reduce using rule 36 (string_expression -> STRING_LITERAL .)
+    LPAREN          reduce using rule 41 (fqn -> IDENTIFIER .)
+    DOT             reduce using rule 41 (fqn -> IDENTIFIER .)
+    RPAREN          reduce using rule 41 (fqn -> IDENTIFIER .)
+    COMMA           reduce using rule 41 (fqn -> IDENTIFIER .)
+    ASSIGNMENT      reduce using rule 41 (fqn -> IDENTIFIER .)
 
 
 state 40
 
-    (37) bool_expression -> TRUE .
+    (10) class_variable -> access type IDENTIFIER ASSIGNMENT expression . SEMICOLON
 
-    RPAREN          reduce using rule 37 (bool_expression -> TRUE .)
-    COMMA           reduce using rule 37 (bool_expression -> TRUE .)
-    SEMICOLON       reduce using rule 37 (bool_expression -> TRUE .)
+    SEMICOLON       shift and go to state 56
 
 
 state 41
 
-    (38) bool_expression -> FALSE .
+    (26) expression -> int_expression .
 
-    RPAREN          reduce using rule 38 (bool_expression -> FALSE .)
-    COMMA           reduce using rule 38 (bool_expression -> FALSE .)
-    SEMICOLON       reduce using rule 38 (bool_expression -> FALSE .)
+    SEMICOLON       reduce using rule 26 (expression -> int_expression .)
+    RPAREN          reduce using rule 26 (expression -> int_expression .)
+    COMMA           reduce using rule 26 (expression -> int_expression .)
 
 
 state 42
 
-    (26) fqn -> fqn DOT IDENTIFIER .
+    (27) expression -> double_expression .
 
-    LPAREN          reduce using rule 26 (fqn -> fqn DOT IDENTIFIER .)
-    DOT             reduce using rule 26 (fqn -> fqn DOT IDENTIFIER .)
-    ASSIGNMENT      reduce using rule 26 (fqn -> fqn DOT IDENTIFIER .)
+    SEMICOLON       reduce using rule 27 (expression -> double_expression .)
+    RPAREN          reduce using rule 27 (expression -> double_expression .)
+    COMMA           reduce using rule 27 (expression -> double_expression .)
 
 
 state 43
 
-    (17) if -> IF LPAREN expression . RPAREN block_or_statement else
+    (28) expression -> string_expression .
 
-    RPAREN          shift and go to state 48
+    SEMICOLON       reduce using rule 28 (expression -> string_expression .)
+    RPAREN          reduce using rule 28 (expression -> string_expression .)
+    COMMA           reduce using rule 28 (expression -> string_expression .)
 
 
 state 44
 
-    (20) while -> WHILE LPAREN expression . RPAREN block_or_statement
+    (29) expression -> bool_expression .
 
-    RPAREN          shift and go to state 49
+    SEMICOLON       reduce using rule 29 (expression -> bool_expression .)
+    RPAREN          reduce using rule 29 (expression -> bool_expression .)
+    COMMA           reduce using rule 29 (expression -> bool_expression .)
 
 
 state 45
 
-    (9) asignment -> type fqn ASSIGNMENT expression . SEMICOLON
+    (30) expression -> call .
 
-    SEMICOLON       shift and go to state 50
+    SEMICOLON       reduce using rule 30 (expression -> call .)
+    RPAREN          reduce using rule 30 (expression -> call .)
+    COMMA           reduce using rule 30 (expression -> call .)
 
 
 state 46
 
-    (34) call -> fqn LPAREN arguments_call RPAREN .
+    (40) int_expression -> INTEGER_LITERAL .
 
-    SEMICOLON       reduce using rule 34 (call -> fqn LPAREN arguments_call RPAREN .)
-    RPAREN          reduce using rule 34 (call -> fqn LPAREN arguments_call RPAREN .)
-    COMMA           reduce using rule 34 (call -> fqn LPAREN arguments_call RPAREN .)
+    SEMICOLON       reduce using rule 40 (int_expression -> INTEGER_LITERAL .)
+    RPAREN          reduce using rule 40 (int_expression -> INTEGER_LITERAL .)
+    COMMA           reduce using rule 40 (int_expression -> INTEGER_LITERAL .)
 
 
 state 47
 
-    (31) arguments_call -> arguments_call COMMA . expression
-    (10) expression -> . int_expression
-    (11) expression -> . double_expression
-    (12) expression -> . string_expression
-    (13) expression -> . bool_expression
-    (14) expression -> . call
-    (24) int_expression -> . INTEGER_LITERAL
-    (35) double_expression -> . DOUBLE_LITERAL
-    (36) string_expression -> . STRING_LITERAL
-    (37) bool_expression -> . TRUE
-    (38) bool_expression -> . FALSE
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (52) double_expression -> DOUBLE_LITERAL .
 
-    INTEGER_LITERAL shift and go to state 37
-    DOUBLE_LITERAL  shift and go to state 38
-    STRING_LITERAL  shift and go to state 39
-    TRUE            shift and go to state 40
-    FALSE           shift and go to state 41
-    IDENTIFIER      shift and go to state 20
+    SEMICOLON       reduce using rule 52 (double_expression -> DOUBLE_LITERAL .)
+    RPAREN          reduce using rule 52 (double_expression -> DOUBLE_LITERAL .)
+    COMMA           reduce using rule 52 (double_expression -> DOUBLE_LITERAL .)
 
-    expression                     shift and go to state 51
-    int_expression                 shift and go to state 32
-    double_expression              shift and go to state 33
-    string_expression              shift and go to state 34
-    bool_expression                shift and go to state 35
-    call                           shift and go to state 36
-    fqn                            shift and go to state 10
 
 state 48
 
-    (17) if -> IF LPAREN expression RPAREN . block_or_statement else
-    (21) block_or_statement -> . statement
-    (22) block_or_statement -> . block
-    (4) statement -> . asignment
-    (5) statement -> . constant
-    (6) statement -> . block_statement
-    (7) statement -> . call SEMICOLON
-    (23) block -> . LBRACKET statement_list RBRACKET
-    (9) asignment -> . type fqn ASSIGNMENT expression SEMICOLON
-    (8) constant -> . CONST asignment
-    (15) block_statement -> . if
-    (16) block_statement -> . while
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (39) type -> . INT
-    (40) type -> . DOUBLE
-    (41) type -> . STRING
-    (42) type -> . BOOL
-    (17) if -> . IF LPAREN expression RPAREN block_or_statement else
-    (20) while -> . WHILE LPAREN expression RPAREN block_or_statement
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (53) string_expression -> STRING_LITERAL .
 
-    LBRACKET        shift and go to state 55
-    CONST           shift and go to state 11
-    INT             shift and go to state 14
-    DOUBLE          shift and go to state 15
-    STRING          shift and go to state 16
-    BOOL            shift and go to state 17
-    IF              shift and go to state 18
-    WHILE           shift and go to state 19
-    IDENTIFIER      shift and go to state 20
+    SEMICOLON       reduce using rule 53 (string_expression -> STRING_LITERAL .)
+    RPAREN          reduce using rule 53 (string_expression -> STRING_LITERAL .)
+    COMMA           reduce using rule 53 (string_expression -> STRING_LITERAL .)
 
-    block_or_statement             shift and go to state 52
-    statement                      shift and go to state 53
-    block                          shift and go to state 54
-    asignment                      shift and go to state 5
-    constant                       shift and go to state 6
-    block_statement                shift and go to state 7
-    call                           shift and go to state 8
-    type                           shift and go to state 9
-    fqn                            shift and go to state 10
-    if                             shift and go to state 12
-    while                          shift and go to state 13
 
 state 49
 
-    (20) while -> WHILE LPAREN expression RPAREN . block_or_statement
-    (21) block_or_statement -> . statement
-    (22) block_or_statement -> . block
-    (4) statement -> . asignment
-    (5) statement -> . constant
-    (6) statement -> . block_statement
-    (7) statement -> . call SEMICOLON
-    (23) block -> . LBRACKET statement_list RBRACKET
-    (9) asignment -> . type fqn ASSIGNMENT expression SEMICOLON
-    (8) constant -> . CONST asignment
-    (15) block_statement -> . if
-    (16) block_statement -> . while
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (39) type -> . INT
-    (40) type -> . DOUBLE
-    (41) type -> . STRING
-    (42) type -> . BOOL
-    (17) if -> . IF LPAREN expression RPAREN block_or_statement else
-    (20) while -> . WHILE LPAREN expression RPAREN block_or_statement
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (54) bool_expression -> TRUE .
 
-    LBRACKET        shift and go to state 55
-    CONST           shift and go to state 11
-    INT             shift and go to state 14
-    DOUBLE          shift and go to state 15
-    STRING          shift and go to state 16
-    BOOL            shift and go to state 17
-    IF              shift and go to state 18
-    WHILE           shift and go to state 19
-    IDENTIFIER      shift and go to state 20
+    SEMICOLON       reduce using rule 54 (bool_expression -> TRUE .)
+    RPAREN          reduce using rule 54 (bool_expression -> TRUE .)
+    COMMA           reduce using rule 54 (bool_expression -> TRUE .)
 
-    block_or_statement             shift and go to state 56
-    statement                      shift and go to state 53
-    block                          shift and go to state 54
-    asignment                      shift and go to state 5
-    constant                       shift and go to state 6
-    block_statement                shift and go to state 7
-    call                           shift and go to state 8
-    type                           shift and go to state 9
-    fqn                            shift and go to state 10
-    if                             shift and go to state 12
-    while                          shift and go to state 13
 
 state 50
 
-    (9) asignment -> type fqn ASSIGNMENT expression SEMICOLON .
+    (55) bool_expression -> FALSE .
 
-    CONST           reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    INT             reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    DOUBLE          reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    STRING          reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    BOOL            reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    IF              reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    WHILE           reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    IDENTIFIER      reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    $end            reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    ELSE            reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
-    RBRACKET        reduce using rule 9 (asignment -> type fqn ASSIGNMENT expression SEMICOLON .)
+    SEMICOLON       reduce using rule 55 (bool_expression -> FALSE .)
+    RPAREN          reduce using rule 55 (bool_expression -> FALSE .)
+    COMMA           reduce using rule 55 (bool_expression -> FALSE .)
 
 
 state 51
 
-    (31) arguments_call -> arguments_call COMMA expression .
+    (51) call -> fqn . LPAREN arguments_call RPAREN
+    (42) fqn -> fqn . DOT IDENTIFIER
 
-    RPAREN          reduce using rule 31 (arguments_call -> arguments_call COMMA expression .)
-    COMMA           reduce using rule 31 (arguments_call -> arguments_call COMMA expression .)
+    LPAREN          shift and go to state 57
+    DOT             shift and go to state 58
 
 
 state 52
 
-    (17) if -> IF LPAREN expression RPAREN block_or_statement . else
-    (18) else -> . ELSE block_or_statement
-    (19) else -> . empty
-    (43) empty -> .
+    (24) var_declaration -> type IDENTIFIER ASSIGNMENT expression . SEMICOLON
 
-  ! shift/reduce conflict for ELSE resolved as shift
-    ELSE            shift and go to state 58
-    CONST           reduce using rule 43 (empty -> .)
-    INT             reduce using rule 43 (empty -> .)
-    DOUBLE          reduce using rule 43 (empty -> .)
-    STRING          reduce using rule 43 (empty -> .)
-    BOOL            reduce using rule 43 (empty -> .)
-    IF              reduce using rule 43 (empty -> .)
-    WHILE           reduce using rule 43 (empty -> .)
-    IDENTIFIER      reduce using rule 43 (empty -> .)
-    $end            reduce using rule 43 (empty -> .)
-    RBRACKET        reduce using rule 43 (empty -> .)
+    SEMICOLON       shift and go to state 59
 
-  ! ELSE            [ reduce using rule 43 (empty -> .) ]
-
-    else                           shift and go to state 57
-    empty                          shift and go to state 59
 
 state 53
 
-    (21) block_or_statement -> statement .
+    (43) type_name -> type IDENTIFIER .
 
-    ELSE            reduce using rule 21 (block_or_statement -> statement .)
-    CONST           reduce using rule 21 (block_or_statement -> statement .)
-    INT             reduce using rule 21 (block_or_statement -> statement .)
-    DOUBLE          reduce using rule 21 (block_or_statement -> statement .)
-    STRING          reduce using rule 21 (block_or_statement -> statement .)
-    BOOL            reduce using rule 21 (block_or_statement -> statement .)
-    IF              reduce using rule 21 (block_or_statement -> statement .)
-    WHILE           reduce using rule 21 (block_or_statement -> statement .)
-    IDENTIFIER      reduce using rule 21 (block_or_statement -> statement .)
-    $end            reduce using rule 21 (block_or_statement -> statement .)
-    RBRACKET        reduce using rule 21 (block_or_statement -> statement .)
+    RPAREN          reduce using rule 43 (type_name -> type IDENTIFIER .)
+    COMMA           reduce using rule 43 (type_name -> type IDENTIFIER .)
 
 
 state 54
 
-    (22) block_or_statement -> block .
+    (11) method -> access type IDENTIFIER LPAREN arguments RPAREN . block
+    (39) block -> . LBRACKET statement_list RBRACKET
 
-    ELSE            reduce using rule 22 (block_or_statement -> block .)
-    CONST           reduce using rule 22 (block_or_statement -> block .)
-    INT             reduce using rule 22 (block_or_statement -> block .)
-    DOUBLE          reduce using rule 22 (block_or_statement -> block .)
-    STRING          reduce using rule 22 (block_or_statement -> block .)
-    BOOL            reduce using rule 22 (block_or_statement -> block .)
-    IF              reduce using rule 22 (block_or_statement -> block .)
-    WHILE           reduce using rule 22 (block_or_statement -> block .)
-    IDENTIFIER      reduce using rule 22 (block_or_statement -> block .)
-    $end            reduce using rule 22 (block_or_statement -> block .)
-    RBRACKET        reduce using rule 22 (block_or_statement -> block .)
+    LBRACKET        shift and go to state 61
 
+    block                          shift and go to state 60
 
 state 55
 
-    (23) block -> LBRACKET . statement_list RBRACKET
-    (2) statement_list -> . statement_list statement
-    (3) statement_list -> . empty
-    (43) empty -> .
+    (44) arguments -> arguments COMMA . type_name
+    (43) type_name -> . type IDENTIFIER
+    (56) type -> . INT
+    (57) type -> . DOUBLE
+    (58) type -> . STRING
+    (59) type -> . BOOL
+    (60) type -> . VOID
 
-    RBRACKET        reduce using rule 43 (empty -> .)
-    CONST           reduce using rule 43 (empty -> .)
-    INT             reduce using rule 43 (empty -> .)
-    DOUBLE          reduce using rule 43 (empty -> .)
-    STRING          reduce using rule 43 (empty -> .)
-    BOOL            reduce using rule 43 (empty -> .)
-    IF              reduce using rule 43 (empty -> .)
-    WHILE           reduce using rule 43 (empty -> .)
-    IDENTIFIER      reduce using rule 43 (empty -> .)
+    INT             shift and go to state 21
+    DOUBLE          shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
 
-    statement_list                 shift and go to state 60
-    empty                          shift and go to state 3
+    type_name                      shift and go to state 62
+    type                           shift and go to state 35
 
 state 56
 
-    (20) while -> WHILE LPAREN expression RPAREN block_or_statement .
+    (10) class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .
 
-    CONST           reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    INT             reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    DOUBLE          reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    STRING          reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    BOOL            reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    IF              reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    WHILE           reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    IDENTIFIER      reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    $end            reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    ELSE            reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
-    RBRACKET        reduce using rule 20 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    RBRACKET        reduce using rule 10 (class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    CONST           reduce using rule 10 (class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    PUBLIC          reduce using rule 10 (class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    PRIVATE         reduce using rule 10 (class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    INT             reduce using rule 10 (class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    DOUBLE          reduce using rule 10 (class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    STRING          reduce using rule 10 (class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    BOOL            reduce using rule 10 (class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    VOID            reduce using rule 10 (class_variable -> access type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
 
 
 state 57
 
-    (17) if -> IF LPAREN expression RPAREN block_or_statement else .
+    (51) call -> fqn LPAREN . arguments_call RPAREN
+    (47) arguments_call -> . arguments_call COMMA expression
+    (48) arguments_call -> . expression
+    (49) arguments_call -> . fqn
+    (50) arguments_call -> . empty
+    (26) expression -> . int_expression
+    (27) expression -> . double_expression
+    (28) expression -> . string_expression
+    (29) expression -> . bool_expression
+    (30) expression -> . call
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
+    (61) empty -> .
+    (40) int_expression -> . INTEGER_LITERAL
+    (52) double_expression -> . DOUBLE_LITERAL
+    (53) string_expression -> . STRING_LITERAL
+    (54) bool_expression -> . TRUE
+    (55) bool_expression -> . FALSE
+    (51) call -> . fqn LPAREN arguments_call RPAREN
 
-    CONST           reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    INT             reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    DOUBLE          reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    STRING          reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    BOOL            reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    IF              reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    WHILE           reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    IDENTIFIER      reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    $end            reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    ELSE            reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
-    RBRACKET        reduce using rule 17 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    IDENTIFIER      shift and go to state 39
+    RPAREN          reduce using rule 61 (empty -> .)
+    COMMA           reduce using rule 61 (empty -> .)
+    INTEGER_LITERAL shift and go to state 46
+    DOUBLE_LITERAL  shift and go to state 47
+    STRING_LITERAL  shift and go to state 48
+    TRUE            shift and go to state 49
+    FALSE           shift and go to state 50
 
+    fqn                            shift and go to state 63
+    arguments_call                 shift and go to state 64
+    expression                     shift and go to state 65
+    empty                          shift and go to state 66
+    int_expression                 shift and go to state 41
+    double_expression              shift and go to state 42
+    string_expression              shift and go to state 43
+    bool_expression                shift and go to state 44
+    call                           shift and go to state 45
 
 state 58
 
-    (18) else -> ELSE . block_or_statement
-    (21) block_or_statement -> . statement
-    (22) block_or_statement -> . block
-    (4) statement -> . asignment
-    (5) statement -> . constant
-    (6) statement -> . block_statement
-    (7) statement -> . call SEMICOLON
-    (23) block -> . LBRACKET statement_list RBRACKET
-    (9) asignment -> . type fqn ASSIGNMENT expression SEMICOLON
-    (8) constant -> . CONST asignment
-    (15) block_statement -> . if
-    (16) block_statement -> . while
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (39) type -> . INT
-    (40) type -> . DOUBLE
-    (41) type -> . STRING
-    (42) type -> . BOOL
-    (17) if -> . IF LPAREN expression RPAREN block_or_statement else
-    (20) while -> . WHILE LPAREN expression RPAREN block_or_statement
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (42) fqn -> fqn DOT . IDENTIFIER
 
-    LBRACKET        shift and go to state 55
-    CONST           shift and go to state 11
-    INT             shift and go to state 14
-    DOUBLE          shift and go to state 15
-    STRING          shift and go to state 16
-    BOOL            shift and go to state 17
-    IF              shift and go to state 18
-    WHILE           shift and go to state 19
-    IDENTIFIER      shift and go to state 20
+    IDENTIFIER      shift and go to state 67
 
-    block_or_statement             shift and go to state 61
-    statement                      shift and go to state 53
-    block                          shift and go to state 54
-    asignment                      shift and go to state 5
-    constant                       shift and go to state 6
-    block_statement                shift and go to state 7
-    call                           shift and go to state 8
-    type                           shift and go to state 9
-    fqn                            shift and go to state 10
-    if                             shift and go to state 12
-    while                          shift and go to state 13
 
 state 59
 
-    (19) else -> empty .
+    (24) var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .
 
-    ELSE            reduce using rule 19 (else -> empty .)
-    CONST           reduce using rule 19 (else -> empty .)
-    INT             reduce using rule 19 (else -> empty .)
-    DOUBLE          reduce using rule 19 (else -> empty .)
-    STRING          reduce using rule 19 (else -> empty .)
-    BOOL            reduce using rule 19 (else -> empty .)
-    IF              reduce using rule 19 (else -> empty .)
-    WHILE           reduce using rule 19 (else -> empty .)
-    IDENTIFIER      reduce using rule 19 (else -> empty .)
-    $end            reduce using rule 19 (else -> empty .)
-    RBRACKET        reduce using rule 19 (else -> empty .)
+    RBRACKET        reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    CONST           reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    PUBLIC          reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    PRIVATE         reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    INT             reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    DOUBLE          reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    STRING          reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    BOOL            reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    VOID            reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    IDENTIFIER      reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    IF              reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    WHILE           reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
+    ELSE            reduce using rule 24 (var_declaration -> type IDENTIFIER ASSIGNMENT expression SEMICOLON .)
 
 
 state 60
 
-    (23) block -> LBRACKET statement_list . RBRACKET
-    (2) statement_list -> statement_list . statement
-    (4) statement -> . asignment
-    (5) statement -> . constant
-    (6) statement -> . block_statement
-    (7) statement -> . call SEMICOLON
-    (9) asignment -> . type fqn ASSIGNMENT expression SEMICOLON
-    (8) constant -> . CONST asignment
-    (15) block_statement -> . if
-    (16) block_statement -> . while
-    (34) call -> . fqn LPAREN arguments_call RPAREN
-    (39) type -> . INT
-    (40) type -> . DOUBLE
-    (41) type -> . STRING
-    (42) type -> . BOOL
-    (17) if -> . IF LPAREN expression RPAREN block_or_statement else
-    (20) while -> . WHILE LPAREN expression RPAREN block_or_statement
-    (25) fqn -> . IDENTIFIER
-    (26) fqn -> . fqn DOT IDENTIFIER
+    (11) method -> access type IDENTIFIER LPAREN arguments RPAREN block .
 
-    RBRACKET        shift and go to state 62
-    CONST           shift and go to state 11
-    INT             shift and go to state 14
-    DOUBLE          shift and go to state 15
-    STRING          shift and go to state 16
-    BOOL            shift and go to state 17
-    IF              shift and go to state 18
-    WHILE           shift and go to state 19
-    IDENTIFIER      shift and go to state 20
+    RBRACKET        reduce using rule 11 (method -> access type IDENTIFIER LPAREN arguments RPAREN block .)
+    CONST           reduce using rule 11 (method -> access type IDENTIFIER LPAREN arguments RPAREN block .)
+    PUBLIC          reduce using rule 11 (method -> access type IDENTIFIER LPAREN arguments RPAREN block .)
+    PRIVATE         reduce using rule 11 (method -> access type IDENTIFIER LPAREN arguments RPAREN block .)
+    INT             reduce using rule 11 (method -> access type IDENTIFIER LPAREN arguments RPAREN block .)
+    DOUBLE          reduce using rule 11 (method -> access type IDENTIFIER LPAREN arguments RPAREN block .)
+    STRING          reduce using rule 11 (method -> access type IDENTIFIER LPAREN arguments RPAREN block .)
+    BOOL            reduce using rule 11 (method -> access type IDENTIFIER LPAREN arguments RPAREN block .)
+    VOID            reduce using rule 11 (method -> access type IDENTIFIER LPAREN arguments RPAREN block .)
 
-    statement                      shift and go to state 4
-    asignment                      shift and go to state 5
-    constant                       shift and go to state 6
-    block_statement                shift and go to state 7
-    call                           shift and go to state 8
-    type                           shift and go to state 9
-    fqn                            shift and go to state 10
-    if                             shift and go to state 12
-    while                          shift and go to state 13
 
 state 61
 
-    (18) else -> ELSE block_or_statement .
+    (39) block -> LBRACKET . statement_list RBRACKET
+    (15) statement_list -> . statement_list statement
+    (16) statement_list -> . empty
+    (61) empty -> .
 
-    ELSE            reduce using rule 18 (else -> ELSE block_or_statement .)
-    CONST           reduce using rule 18 (else -> ELSE block_or_statement .)
-    INT             reduce using rule 18 (else -> ELSE block_or_statement .)
-    DOUBLE          reduce using rule 18 (else -> ELSE block_or_statement .)
-    STRING          reduce using rule 18 (else -> ELSE block_or_statement .)
-    BOOL            reduce using rule 18 (else -> ELSE block_or_statement .)
-    IF              reduce using rule 18 (else -> ELSE block_or_statement .)
-    WHILE           reduce using rule 18 (else -> ELSE block_or_statement .)
-    IDENTIFIER      reduce using rule 18 (else -> ELSE block_or_statement .)
-    $end            reduce using rule 18 (else -> ELSE block_or_statement .)
-    RBRACKET        reduce using rule 18 (else -> ELSE block_or_statement .)
+    RBRACKET        reduce using rule 61 (empty -> .)
+    CONST           reduce using rule 61 (empty -> .)
+    INT             reduce using rule 61 (empty -> .)
+    DOUBLE          reduce using rule 61 (empty -> .)
+    STRING          reduce using rule 61 (empty -> .)
+    BOOL            reduce using rule 61 (empty -> .)
+    VOID            reduce using rule 61 (empty -> .)
+    IDENTIFIER      reduce using rule 61 (empty -> .)
+    IF              reduce using rule 61 (empty -> .)
+    WHILE           reduce using rule 61 (empty -> .)
 
+    statement_list                 shift and go to state 68
+    empty                          shift and go to state 69
 
 state 62
 
-    (23) block -> LBRACKET statement_list RBRACKET .
+    (44) arguments -> arguments COMMA type_name .
 
-    ELSE            reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    CONST           reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    INT             reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    DOUBLE          reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    STRING          reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    BOOL            reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    IF              reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    WHILE           reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    IDENTIFIER      reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    $end            reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
-    RBRACKET        reduce using rule 23 (block -> LBRACKET statement_list RBRACKET .)
+    RPAREN          reduce using rule 44 (arguments -> arguments COMMA type_name .)
+    COMMA           reduce using rule 44 (arguments -> arguments COMMA type_name .)
+
+
+state 63
+
+    (49) arguments_call -> fqn .
+    (42) fqn -> fqn . DOT IDENTIFIER
+    (51) call -> fqn . LPAREN arguments_call RPAREN
+
+    RPAREN          reduce using rule 49 (arguments_call -> fqn .)
+    COMMA           reduce using rule 49 (arguments_call -> fqn .)
+    DOT             shift and go to state 58
+    LPAREN          shift and go to state 57
+
+
+state 64
+
+    (51) call -> fqn LPAREN arguments_call . RPAREN
+    (47) arguments_call -> arguments_call . COMMA expression
+
+    RPAREN          shift and go to state 70
+    COMMA           shift and go to state 71
+
+
+state 65
+
+    (48) arguments_call -> expression .
+
+    RPAREN          reduce using rule 48 (arguments_call -> expression .)
+    COMMA           reduce using rule 48 (arguments_call -> expression .)
+
+
+state 66
+
+    (50) arguments_call -> empty .
+
+    RPAREN          reduce using rule 50 (arguments_call -> empty .)
+    COMMA           reduce using rule 50 (arguments_call -> empty .)
+
+
+state 67
+
+    (42) fqn -> fqn DOT IDENTIFIER .
+
+    LPAREN          reduce using rule 42 (fqn -> fqn DOT IDENTIFIER .)
+    DOT             reduce using rule 42 (fqn -> fqn DOT IDENTIFIER .)
+    RPAREN          reduce using rule 42 (fqn -> fqn DOT IDENTIFIER .)
+    COMMA           reduce using rule 42 (fqn -> fqn DOT IDENTIFIER .)
+    ASSIGNMENT      reduce using rule 42 (fqn -> fqn DOT IDENTIFIER .)
+
+
+state 68
+
+    (39) block -> LBRACKET statement_list . RBRACKET
+    (15) statement_list -> statement_list . statement
+    (17) statement -> . var_declaration
+    (18) statement -> . asignment
+    (19) statement -> . constant
+    (20) statement -> . block_statement
+    (21) statement -> . call SEMICOLON
+    (23) var_declaration -> . type IDENTIFIER SEMICOLON
+    (24) var_declaration -> . type IDENTIFIER ASSIGNMENT expression SEMICOLON
+    (25) asignment -> . fqn ASSIGNMENT expression SEMICOLON
+    (22) constant -> . CONST var_declaration
+    (31) block_statement -> . if
+    (32) block_statement -> . while
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (56) type -> . INT
+    (57) type -> . DOUBLE
+    (58) type -> . STRING
+    (59) type -> . BOOL
+    (60) type -> . VOID
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
+    (33) if -> . IF LPAREN expression RPAREN block_or_statement else
+    (36) while -> . WHILE LPAREN expression RPAREN block_or_statement
+
+    RBRACKET        shift and go to state 72
+    CONST           shift and go to state 19
+    INT             shift and go to state 21
+    DOUBLE          shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
+    IDENTIFIER      shift and go to state 39
+    IF              shift and go to state 82
+    WHILE           shift and go to state 83
+
+    statement                      shift and go to state 73
+    var_declaration                shift and go to state 74
+    asignment                      shift and go to state 75
+    constant                       shift and go to state 76
+    block_statement                shift and go to state 77
+    call                           shift and go to state 78
+    type                           shift and go to state 27
+    fqn                            shift and go to state 79
+    if                             shift and go to state 80
+    while                          shift and go to state 81
+
+state 69
+
+    (16) statement_list -> empty .
+
+    RBRACKET        reduce using rule 16 (statement_list -> empty .)
+    CONST           reduce using rule 16 (statement_list -> empty .)
+    INT             reduce using rule 16 (statement_list -> empty .)
+    DOUBLE          reduce using rule 16 (statement_list -> empty .)
+    STRING          reduce using rule 16 (statement_list -> empty .)
+    BOOL            reduce using rule 16 (statement_list -> empty .)
+    VOID            reduce using rule 16 (statement_list -> empty .)
+    IDENTIFIER      reduce using rule 16 (statement_list -> empty .)
+    IF              reduce using rule 16 (statement_list -> empty .)
+    WHILE           reduce using rule 16 (statement_list -> empty .)
+
+
+state 70
+
+    (51) call -> fqn LPAREN arguments_call RPAREN .
+
+    SEMICOLON       reduce using rule 51 (call -> fqn LPAREN arguments_call RPAREN .)
+    RPAREN          reduce using rule 51 (call -> fqn LPAREN arguments_call RPAREN .)
+    COMMA           reduce using rule 51 (call -> fqn LPAREN arguments_call RPAREN .)
+
+
+state 71
+
+    (47) arguments_call -> arguments_call COMMA . expression
+    (26) expression -> . int_expression
+    (27) expression -> . double_expression
+    (28) expression -> . string_expression
+    (29) expression -> . bool_expression
+    (30) expression -> . call
+    (40) int_expression -> . INTEGER_LITERAL
+    (52) double_expression -> . DOUBLE_LITERAL
+    (53) string_expression -> . STRING_LITERAL
+    (54) bool_expression -> . TRUE
+    (55) bool_expression -> . FALSE
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
+
+    INTEGER_LITERAL shift and go to state 46
+    DOUBLE_LITERAL  shift and go to state 47
+    STRING_LITERAL  shift and go to state 48
+    TRUE            shift and go to state 49
+    FALSE           shift and go to state 50
+    IDENTIFIER      shift and go to state 39
+
+    expression                     shift and go to state 84
+    int_expression                 shift and go to state 41
+    double_expression              shift and go to state 42
+    string_expression              shift and go to state 43
+    bool_expression                shift and go to state 44
+    call                           shift and go to state 45
+    fqn                            shift and go to state 51
+
+state 72
+
+    (39) block -> LBRACKET statement_list RBRACKET .
+
+    RBRACKET        reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    CONST           reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    PUBLIC          reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    PRIVATE         reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    INT             reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    DOUBLE          reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    STRING          reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    BOOL            reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    VOID            reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    ELSE            reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    IDENTIFIER      reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    IF              reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+    WHILE           reduce using rule 39 (block -> LBRACKET statement_list RBRACKET .)
+
+
+state 73
+
+    (15) statement_list -> statement_list statement .
+
+    RBRACKET        reduce using rule 15 (statement_list -> statement_list statement .)
+    CONST           reduce using rule 15 (statement_list -> statement_list statement .)
+    INT             reduce using rule 15 (statement_list -> statement_list statement .)
+    DOUBLE          reduce using rule 15 (statement_list -> statement_list statement .)
+    STRING          reduce using rule 15 (statement_list -> statement_list statement .)
+    BOOL            reduce using rule 15 (statement_list -> statement_list statement .)
+    VOID            reduce using rule 15 (statement_list -> statement_list statement .)
+    IDENTIFIER      reduce using rule 15 (statement_list -> statement_list statement .)
+    IF              reduce using rule 15 (statement_list -> statement_list statement .)
+    WHILE           reduce using rule 15 (statement_list -> statement_list statement .)
+
+
+state 74
+
+    (17) statement -> var_declaration .
+
+    RBRACKET        reduce using rule 17 (statement -> var_declaration .)
+    CONST           reduce using rule 17 (statement -> var_declaration .)
+    INT             reduce using rule 17 (statement -> var_declaration .)
+    DOUBLE          reduce using rule 17 (statement -> var_declaration .)
+    STRING          reduce using rule 17 (statement -> var_declaration .)
+    BOOL            reduce using rule 17 (statement -> var_declaration .)
+    VOID            reduce using rule 17 (statement -> var_declaration .)
+    IDENTIFIER      reduce using rule 17 (statement -> var_declaration .)
+    IF              reduce using rule 17 (statement -> var_declaration .)
+    WHILE           reduce using rule 17 (statement -> var_declaration .)
+    ELSE            reduce using rule 17 (statement -> var_declaration .)
+
+
+state 75
+
+    (18) statement -> asignment .
+
+    RBRACKET        reduce using rule 18 (statement -> asignment .)
+    CONST           reduce using rule 18 (statement -> asignment .)
+    INT             reduce using rule 18 (statement -> asignment .)
+    DOUBLE          reduce using rule 18 (statement -> asignment .)
+    STRING          reduce using rule 18 (statement -> asignment .)
+    BOOL            reduce using rule 18 (statement -> asignment .)
+    VOID            reduce using rule 18 (statement -> asignment .)
+    IDENTIFIER      reduce using rule 18 (statement -> asignment .)
+    IF              reduce using rule 18 (statement -> asignment .)
+    WHILE           reduce using rule 18 (statement -> asignment .)
+    ELSE            reduce using rule 18 (statement -> asignment .)
+
+
+state 76
+
+    (19) statement -> constant .
+
+    RBRACKET        reduce using rule 19 (statement -> constant .)
+    CONST           reduce using rule 19 (statement -> constant .)
+    INT             reduce using rule 19 (statement -> constant .)
+    DOUBLE          reduce using rule 19 (statement -> constant .)
+    STRING          reduce using rule 19 (statement -> constant .)
+    BOOL            reduce using rule 19 (statement -> constant .)
+    VOID            reduce using rule 19 (statement -> constant .)
+    IDENTIFIER      reduce using rule 19 (statement -> constant .)
+    IF              reduce using rule 19 (statement -> constant .)
+    WHILE           reduce using rule 19 (statement -> constant .)
+    ELSE            reduce using rule 19 (statement -> constant .)
+
+
+state 77
+
+    (20) statement -> block_statement .
+
+    RBRACKET        reduce using rule 20 (statement -> block_statement .)
+    CONST           reduce using rule 20 (statement -> block_statement .)
+    INT             reduce using rule 20 (statement -> block_statement .)
+    DOUBLE          reduce using rule 20 (statement -> block_statement .)
+    STRING          reduce using rule 20 (statement -> block_statement .)
+    BOOL            reduce using rule 20 (statement -> block_statement .)
+    VOID            reduce using rule 20 (statement -> block_statement .)
+    IDENTIFIER      reduce using rule 20 (statement -> block_statement .)
+    IF              reduce using rule 20 (statement -> block_statement .)
+    WHILE           reduce using rule 20 (statement -> block_statement .)
+    ELSE            reduce using rule 20 (statement -> block_statement .)
+
+
+state 78
+
+    (21) statement -> call . SEMICOLON
+
+    SEMICOLON       shift and go to state 85
+
+
+state 79
+
+    (25) asignment -> fqn . ASSIGNMENT expression SEMICOLON
+    (51) call -> fqn . LPAREN arguments_call RPAREN
+    (42) fqn -> fqn . DOT IDENTIFIER
+
+    ASSIGNMENT      shift and go to state 86
+    LPAREN          shift and go to state 57
+    DOT             shift and go to state 58
+
+
+state 80
+
+    (31) block_statement -> if .
+
+    RBRACKET        reduce using rule 31 (block_statement -> if .)
+    CONST           reduce using rule 31 (block_statement -> if .)
+    INT             reduce using rule 31 (block_statement -> if .)
+    DOUBLE          reduce using rule 31 (block_statement -> if .)
+    STRING          reduce using rule 31 (block_statement -> if .)
+    BOOL            reduce using rule 31 (block_statement -> if .)
+    VOID            reduce using rule 31 (block_statement -> if .)
+    IDENTIFIER      reduce using rule 31 (block_statement -> if .)
+    IF              reduce using rule 31 (block_statement -> if .)
+    WHILE           reduce using rule 31 (block_statement -> if .)
+    ELSE            reduce using rule 31 (block_statement -> if .)
+
+
+state 81
+
+    (32) block_statement -> while .
+
+    RBRACKET        reduce using rule 32 (block_statement -> while .)
+    CONST           reduce using rule 32 (block_statement -> while .)
+    INT             reduce using rule 32 (block_statement -> while .)
+    DOUBLE          reduce using rule 32 (block_statement -> while .)
+    STRING          reduce using rule 32 (block_statement -> while .)
+    BOOL            reduce using rule 32 (block_statement -> while .)
+    VOID            reduce using rule 32 (block_statement -> while .)
+    IDENTIFIER      reduce using rule 32 (block_statement -> while .)
+    IF              reduce using rule 32 (block_statement -> while .)
+    WHILE           reduce using rule 32 (block_statement -> while .)
+    ELSE            reduce using rule 32 (block_statement -> while .)
+
+
+state 82
+
+    (33) if -> IF . LPAREN expression RPAREN block_or_statement else
+
+    LPAREN          shift and go to state 87
+
+
+state 83
+
+    (36) while -> WHILE . LPAREN expression RPAREN block_or_statement
+
+    LPAREN          shift and go to state 88
+
+
+state 84
+
+    (47) arguments_call -> arguments_call COMMA expression .
+
+    RPAREN          reduce using rule 47 (arguments_call -> arguments_call COMMA expression .)
+    COMMA           reduce using rule 47 (arguments_call -> arguments_call COMMA expression .)
+
+
+state 85
+
+    (21) statement -> call SEMICOLON .
+
+    RBRACKET        reduce using rule 21 (statement -> call SEMICOLON .)
+    CONST           reduce using rule 21 (statement -> call SEMICOLON .)
+    INT             reduce using rule 21 (statement -> call SEMICOLON .)
+    DOUBLE          reduce using rule 21 (statement -> call SEMICOLON .)
+    STRING          reduce using rule 21 (statement -> call SEMICOLON .)
+    BOOL            reduce using rule 21 (statement -> call SEMICOLON .)
+    VOID            reduce using rule 21 (statement -> call SEMICOLON .)
+    IDENTIFIER      reduce using rule 21 (statement -> call SEMICOLON .)
+    IF              reduce using rule 21 (statement -> call SEMICOLON .)
+    WHILE           reduce using rule 21 (statement -> call SEMICOLON .)
+    ELSE            reduce using rule 21 (statement -> call SEMICOLON .)
+
+
+state 86
+
+    (25) asignment -> fqn ASSIGNMENT . expression SEMICOLON
+    (26) expression -> . int_expression
+    (27) expression -> . double_expression
+    (28) expression -> . string_expression
+    (29) expression -> . bool_expression
+    (30) expression -> . call
+    (40) int_expression -> . INTEGER_LITERAL
+    (52) double_expression -> . DOUBLE_LITERAL
+    (53) string_expression -> . STRING_LITERAL
+    (54) bool_expression -> . TRUE
+    (55) bool_expression -> . FALSE
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
+
+    INTEGER_LITERAL shift and go to state 46
+    DOUBLE_LITERAL  shift and go to state 47
+    STRING_LITERAL  shift and go to state 48
+    TRUE            shift and go to state 49
+    FALSE           shift and go to state 50
+    IDENTIFIER      shift and go to state 39
+
+    fqn                            shift and go to state 51
+    expression                     shift and go to state 89
+    int_expression                 shift and go to state 41
+    double_expression              shift and go to state 42
+    string_expression              shift and go to state 43
+    bool_expression                shift and go to state 44
+    call                           shift and go to state 45
+
+state 87
+
+    (33) if -> IF LPAREN . expression RPAREN block_or_statement else
+    (26) expression -> . int_expression
+    (27) expression -> . double_expression
+    (28) expression -> . string_expression
+    (29) expression -> . bool_expression
+    (30) expression -> . call
+    (40) int_expression -> . INTEGER_LITERAL
+    (52) double_expression -> . DOUBLE_LITERAL
+    (53) string_expression -> . STRING_LITERAL
+    (54) bool_expression -> . TRUE
+    (55) bool_expression -> . FALSE
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
+
+    INTEGER_LITERAL shift and go to state 46
+    DOUBLE_LITERAL  shift and go to state 47
+    STRING_LITERAL  shift and go to state 48
+    TRUE            shift and go to state 49
+    FALSE           shift and go to state 50
+    IDENTIFIER      shift and go to state 39
+
+    expression                     shift and go to state 90
+    int_expression                 shift and go to state 41
+    double_expression              shift and go to state 42
+    string_expression              shift and go to state 43
+    bool_expression                shift and go to state 44
+    call                           shift and go to state 45
+    fqn                            shift and go to state 51
+
+state 88
+
+    (36) while -> WHILE LPAREN . expression RPAREN block_or_statement
+    (26) expression -> . int_expression
+    (27) expression -> . double_expression
+    (28) expression -> . string_expression
+    (29) expression -> . bool_expression
+    (30) expression -> . call
+    (40) int_expression -> . INTEGER_LITERAL
+    (52) double_expression -> . DOUBLE_LITERAL
+    (53) string_expression -> . STRING_LITERAL
+    (54) bool_expression -> . TRUE
+    (55) bool_expression -> . FALSE
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
+
+    INTEGER_LITERAL shift and go to state 46
+    DOUBLE_LITERAL  shift and go to state 47
+    STRING_LITERAL  shift and go to state 48
+    TRUE            shift and go to state 49
+    FALSE           shift and go to state 50
+    IDENTIFIER      shift and go to state 39
+
+    expression                     shift and go to state 91
+    int_expression                 shift and go to state 41
+    double_expression              shift and go to state 42
+    string_expression              shift and go to state 43
+    bool_expression                shift and go to state 44
+    call                           shift and go to state 45
+    fqn                            shift and go to state 51
+
+state 89
+
+    (25) asignment -> fqn ASSIGNMENT expression . SEMICOLON
+
+    SEMICOLON       shift and go to state 92
+
+
+state 90
+
+    (33) if -> IF LPAREN expression . RPAREN block_or_statement else
+
+    RPAREN          shift and go to state 93
+
+
+state 91
+
+    (36) while -> WHILE LPAREN expression . RPAREN block_or_statement
+
+    RPAREN          shift and go to state 94
+
+
+state 92
+
+    (25) asignment -> fqn ASSIGNMENT expression SEMICOLON .
+
+    RBRACKET        reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    CONST           reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    INT             reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    DOUBLE          reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    STRING          reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    BOOL            reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    VOID            reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    IDENTIFIER      reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    IF              reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    WHILE           reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+    ELSE            reduce using rule 25 (asignment -> fqn ASSIGNMENT expression SEMICOLON .)
+
+
+state 93
+
+    (33) if -> IF LPAREN expression RPAREN . block_or_statement else
+    (37) block_or_statement -> . statement
+    (38) block_or_statement -> . block
+    (17) statement -> . var_declaration
+    (18) statement -> . asignment
+    (19) statement -> . constant
+    (20) statement -> . block_statement
+    (21) statement -> . call SEMICOLON
+    (39) block -> . LBRACKET statement_list RBRACKET
+    (23) var_declaration -> . type IDENTIFIER SEMICOLON
+    (24) var_declaration -> . type IDENTIFIER ASSIGNMENT expression SEMICOLON
+    (25) asignment -> . fqn ASSIGNMENT expression SEMICOLON
+    (22) constant -> . CONST var_declaration
+    (31) block_statement -> . if
+    (32) block_statement -> . while
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (56) type -> . INT
+    (57) type -> . DOUBLE
+    (58) type -> . STRING
+    (59) type -> . BOOL
+    (60) type -> . VOID
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
+    (33) if -> . IF LPAREN expression RPAREN block_or_statement else
+    (36) while -> . WHILE LPAREN expression RPAREN block_or_statement
+
+    LBRACKET        shift and go to state 61
+    CONST           shift and go to state 19
+    INT             shift and go to state 21
+    DOUBLE          shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
+    IDENTIFIER      shift and go to state 39
+    IF              shift and go to state 82
+    WHILE           shift and go to state 83
+
+    block_or_statement             shift and go to state 95
+    statement                      shift and go to state 96
+    block                          shift and go to state 97
+    var_declaration                shift and go to state 74
+    asignment                      shift and go to state 75
+    constant                       shift and go to state 76
+    block_statement                shift and go to state 77
+    call                           shift and go to state 78
+    type                           shift and go to state 27
+    fqn                            shift and go to state 79
+    if                             shift and go to state 80
+    while                          shift and go to state 81
+
+state 94
+
+    (36) while -> WHILE LPAREN expression RPAREN . block_or_statement
+    (37) block_or_statement -> . statement
+    (38) block_or_statement -> . block
+    (17) statement -> . var_declaration
+    (18) statement -> . asignment
+    (19) statement -> . constant
+    (20) statement -> . block_statement
+    (21) statement -> . call SEMICOLON
+    (39) block -> . LBRACKET statement_list RBRACKET
+    (23) var_declaration -> . type IDENTIFIER SEMICOLON
+    (24) var_declaration -> . type IDENTIFIER ASSIGNMENT expression SEMICOLON
+    (25) asignment -> . fqn ASSIGNMENT expression SEMICOLON
+    (22) constant -> . CONST var_declaration
+    (31) block_statement -> . if
+    (32) block_statement -> . while
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (56) type -> . INT
+    (57) type -> . DOUBLE
+    (58) type -> . STRING
+    (59) type -> . BOOL
+    (60) type -> . VOID
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
+    (33) if -> . IF LPAREN expression RPAREN block_or_statement else
+    (36) while -> . WHILE LPAREN expression RPAREN block_or_statement
+
+    LBRACKET        shift and go to state 61
+    CONST           shift and go to state 19
+    INT             shift and go to state 21
+    DOUBLE          shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
+    IDENTIFIER      shift and go to state 39
+    IF              shift and go to state 82
+    WHILE           shift and go to state 83
+
+    block_or_statement             shift and go to state 98
+    statement                      shift and go to state 96
+    block                          shift and go to state 97
+    var_declaration                shift and go to state 74
+    asignment                      shift and go to state 75
+    constant                       shift and go to state 76
+    block_statement                shift and go to state 77
+    call                           shift and go to state 78
+    type                           shift and go to state 27
+    fqn                            shift and go to state 79
+    if                             shift and go to state 80
+    while                          shift and go to state 81
+
+state 95
+
+    (33) if -> IF LPAREN expression RPAREN block_or_statement . else
+    (34) else -> . ELSE block_or_statement
+    (35) else -> . empty
+    (61) empty -> .
+
+  ! shift/reduce conflict for ELSE resolved as shift
+    ELSE            shift and go to state 100
+    RBRACKET        reduce using rule 61 (empty -> .)
+    CONST           reduce using rule 61 (empty -> .)
+    INT             reduce using rule 61 (empty -> .)
+    DOUBLE          reduce using rule 61 (empty -> .)
+    STRING          reduce using rule 61 (empty -> .)
+    BOOL            reduce using rule 61 (empty -> .)
+    VOID            reduce using rule 61 (empty -> .)
+    IDENTIFIER      reduce using rule 61 (empty -> .)
+    IF              reduce using rule 61 (empty -> .)
+    WHILE           reduce using rule 61 (empty -> .)
+
+  ! ELSE            [ reduce using rule 61 (empty -> .) ]
+
+    else                           shift and go to state 99
+    empty                          shift and go to state 101
+
+state 96
+
+    (37) block_or_statement -> statement .
+
+    ELSE            reduce using rule 37 (block_or_statement -> statement .)
+    RBRACKET        reduce using rule 37 (block_or_statement -> statement .)
+    CONST           reduce using rule 37 (block_or_statement -> statement .)
+    INT             reduce using rule 37 (block_or_statement -> statement .)
+    DOUBLE          reduce using rule 37 (block_or_statement -> statement .)
+    STRING          reduce using rule 37 (block_or_statement -> statement .)
+    BOOL            reduce using rule 37 (block_or_statement -> statement .)
+    VOID            reduce using rule 37 (block_or_statement -> statement .)
+    IDENTIFIER      reduce using rule 37 (block_or_statement -> statement .)
+    IF              reduce using rule 37 (block_or_statement -> statement .)
+    WHILE           reduce using rule 37 (block_or_statement -> statement .)
+
+
+state 97
+
+    (38) block_or_statement -> block .
+
+    ELSE            reduce using rule 38 (block_or_statement -> block .)
+    RBRACKET        reduce using rule 38 (block_or_statement -> block .)
+    CONST           reduce using rule 38 (block_or_statement -> block .)
+    INT             reduce using rule 38 (block_or_statement -> block .)
+    DOUBLE          reduce using rule 38 (block_or_statement -> block .)
+    STRING          reduce using rule 38 (block_or_statement -> block .)
+    BOOL            reduce using rule 38 (block_or_statement -> block .)
+    VOID            reduce using rule 38 (block_or_statement -> block .)
+    IDENTIFIER      reduce using rule 38 (block_or_statement -> block .)
+    IF              reduce using rule 38 (block_or_statement -> block .)
+    WHILE           reduce using rule 38 (block_or_statement -> block .)
+
+
+state 98
+
+    (36) while -> WHILE LPAREN expression RPAREN block_or_statement .
+
+    RBRACKET        reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    CONST           reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    INT             reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    DOUBLE          reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    STRING          reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    BOOL            reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    VOID            reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    IDENTIFIER      reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    IF              reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    WHILE           reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+    ELSE            reduce using rule 36 (while -> WHILE LPAREN expression RPAREN block_or_statement .)
+
+
+state 99
+
+    (33) if -> IF LPAREN expression RPAREN block_or_statement else .
+
+    RBRACKET        reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    CONST           reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    INT             reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    DOUBLE          reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    STRING          reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    BOOL            reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    VOID            reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    IDENTIFIER      reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    IF              reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    WHILE           reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+    ELSE            reduce using rule 33 (if -> IF LPAREN expression RPAREN block_or_statement else .)
+
+
+state 100
+
+    (34) else -> ELSE . block_or_statement
+    (37) block_or_statement -> . statement
+    (38) block_or_statement -> . block
+    (17) statement -> . var_declaration
+    (18) statement -> . asignment
+    (19) statement -> . constant
+    (20) statement -> . block_statement
+    (21) statement -> . call SEMICOLON
+    (39) block -> . LBRACKET statement_list RBRACKET
+    (23) var_declaration -> . type IDENTIFIER SEMICOLON
+    (24) var_declaration -> . type IDENTIFIER ASSIGNMENT expression SEMICOLON
+    (25) asignment -> . fqn ASSIGNMENT expression SEMICOLON
+    (22) constant -> . CONST var_declaration
+    (31) block_statement -> . if
+    (32) block_statement -> . while
+    (51) call -> . fqn LPAREN arguments_call RPAREN
+    (56) type -> . INT
+    (57) type -> . DOUBLE
+    (58) type -> . STRING
+    (59) type -> . BOOL
+    (60) type -> . VOID
+    (41) fqn -> . IDENTIFIER
+    (42) fqn -> . fqn DOT IDENTIFIER
+    (33) if -> . IF LPAREN expression RPAREN block_or_statement else
+    (36) while -> . WHILE LPAREN expression RPAREN block_or_statement
+
+    LBRACKET        shift and go to state 61
+    CONST           shift and go to state 19
+    INT             shift and go to state 21
+    DOUBLE          shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
+    IDENTIFIER      shift and go to state 39
+    IF              shift and go to state 82
+    WHILE           shift and go to state 83
+
+    block_or_statement             shift and go to state 102
+    statement                      shift and go to state 96
+    block                          shift and go to state 97
+    var_declaration                shift and go to state 74
+    asignment                      shift and go to state 75
+    constant                       shift and go to state 76
+    block_statement                shift and go to state 77
+    call                           shift and go to state 78
+    type                           shift and go to state 27
+    fqn                            shift and go to state 79
+    if                             shift and go to state 80
+    while                          shift and go to state 81
+
+state 101
+
+    (35) else -> empty .
+
+    ELSE            reduce using rule 35 (else -> empty .)
+    RBRACKET        reduce using rule 35 (else -> empty .)
+    CONST           reduce using rule 35 (else -> empty .)
+    INT             reduce using rule 35 (else -> empty .)
+    DOUBLE          reduce using rule 35 (else -> empty .)
+    STRING          reduce using rule 35 (else -> empty .)
+    BOOL            reduce using rule 35 (else -> empty .)
+    VOID            reduce using rule 35 (else -> empty .)
+    IDENTIFIER      reduce using rule 35 (else -> empty .)
+    IF              reduce using rule 35 (else -> empty .)
+    WHILE           reduce using rule 35 (else -> empty .)
+
+
+state 102
+
+    (34) else -> ELSE block_or_statement .
+
+    ELSE            reduce using rule 34 (else -> ELSE block_or_statement .)
+    RBRACKET        reduce using rule 34 (else -> ELSE block_or_statement .)
+    CONST           reduce using rule 34 (else -> ELSE block_or_statement .)
+    INT             reduce using rule 34 (else -> ELSE block_or_statement .)
+    DOUBLE          reduce using rule 34 (else -> ELSE block_or_statement .)
+    STRING          reduce using rule 34 (else -> ELSE block_or_statement .)
+    BOOL            reduce using rule 34 (else -> ELSE block_or_statement .)
+    VOID            reduce using rule 34 (else -> ELSE block_or_statement .)
+    IDENTIFIER      reduce using rule 34 (else -> ELSE block_or_statement .)
+    IF              reduce using rule 34 (else -> ELSE block_or_statement .)
+    WHILE           reduce using rule 34 (else -> ELSE block_or_statement .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for ELSE in state 52 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 95 resolved as shift
